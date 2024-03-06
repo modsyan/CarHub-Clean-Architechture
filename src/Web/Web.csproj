@@ -1,0 +1,151 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>Mac.CarHub.Web</RootNamespace>
+    <AssemblyName>Mac.CarHub.Web</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+    
+    <SpaRoot>ClientApp\</SpaRoot>
+    <SpaProxyServerUrl>https://localhost:4444</SpaProxyServerUrl>
+    <SpaLaunchCommand>flutter build web</SpaLaunchCommand>
+    <UserSecretsId>b43b7fe9-1618-4ce1-a645-aa1558da4ed6</UserSecretsId>
+    <ApiKey>928fba33-07c6-49fa-8fa5-51bb69034bc9</ApiKey>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" />
+    <PackageReference Include="Azure.Identity" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <PackageReference Include="NSwag.AspNetCore" />
+    <PackageReference Include="NSwag.MSBuild">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentValidation.AspNetCore" />
+    <PackageReference Include="Razor.Templating.Core" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="Pages\**" />
+    <Compile Remove="Endpoints\TodoItems.cs" />
+    <Compile Remove="Endpoints\TodoLists.cs" />
+    <Compile Remove="Endpoints\WeatherForecasts.cs" />
+    <Compile Remove="Endpoints\Employees.cs" />
+    <Compile Remove="Endpoints\Events.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Shared\_LoginPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\api\specification.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\api-off\specification.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\01b514b3-35a1-4975-8806-b330884e3f8a.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\064fef78-7a0c-4593-b38d-39e0f725fa94.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\0aaad590-3030-4b05-898a-35b428b09174.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\0e002f0e-7866-49a9-8aa2-35d33fc82fb9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\15220050-d805-41f0-92d0-92c27335c956.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\18600b9c-1f23-4c82-92f3-ddd7d93c0578.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\1b770af3-a4a7-4376-a403-c1559c36c8f7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\1bd0b07e-4b9f-4dc5-9fc4-35fbd8694edf.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\1efa8b83-ca68-45c8-9d9c-c59b15b8f136.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\1f5a9509-5750-40bb-a231-202273265acf.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\2d1cae87-617c-43b8-b07d-e85c28284e31.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\2ff80b57-302e-4904-bdca-a101fafa0245.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\333719cd-754e-4956-bb84-88f8c00fec49.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\342caa28-4d6c-47ff-bebc-2850f93c2045.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\360a738d-9169-4ec3-848d-2433dcd747e7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\361242e0-ce33-41e2-a4fc-edc15f0cb2c0.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\380f0547-2851-46e0-a379-98a58052816d.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\392d3312-64ca-4e8a-8ba1-3b2bcf9a9a3b.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\3a976943-28e4-4b60-b1da-dfde598bf4fe.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\3bb05c2f-5521-4f7d-8ba1-8366544abc9b.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\405d77c5-e24c-4980-a907-e03d49eeffea.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\47739bd5-f1af-4671-b754-e9dbb05ccc0b.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\546e2275-ddde-42a2-b7e3-65bc24c027e9.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\556b3d51-d368-4c03-a515-05ed629b1747.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\5965f783-c8e4-4975-b136-a7810d2e6976.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\5b340ea3-d063-4ae7-b7e3-644cd108afbe.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\5d23d6b9-090b-4833-acaa-67422df7fd53.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\636eca20-ac65-43e8-8cf2-65b63c15c14f.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\63bde708-bc21-4467-b6e4-5b503a0e4415.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\64a1e41d-5ccd-4478-b94f-f5be6cf1ed37.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\6625ec01-71c8-4a96-b104-ddd6268f3164.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\6cab53a6-a852-4a3c-8d21-255837dd3ef8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\6f7d25d8-3436-478c-9538-519043b499da.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\727a5be6-119f-4da4-8c35-a502cf5c38f9.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\7460841c-5e6e-4524-804b-4d10ecc16526.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\7a3b0681-5be1-4b68-9fc7-3e43ca1c477b.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\7baa75b7-f193-4cec-992e-56b9d430905b.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\7c298ca3-8bfe-44ce-bbd1-0aa20519819e.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\7ec24e42-40b9-452b-a4ff-18932120d85a.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\7efcd4fb-91db-40e3-b31c-2a058bc08160.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\80543bdd-6943-4094-aa77-b3c520471b29.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\8306c92b-ffa2-453c-8e33-a204425422bf.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\950b24ee-04bc-4451-a4a6-788490c983ea.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\9ba0fc63-382f-43c3-876e-9cf526fa7798.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\9e22317f-9a27-4354-b4dd-1f1eeb83c1f6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\a1652a6e-0639-4cb8-8b2b-97bc6cdbb4f8.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\a26b601d-d701-4fd9-9460-e34d0ebf4516.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\a4beab96-e1ad-4de9-af5c-ec2082552938.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\a68d949a-ae8c-4256-8ed4-0f545e280ec6.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\a7bfb07e-0e4c-43a6-945d-59b5d4fb992e.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\aef7cdef-02de-4f7d-bc79-e92958a3c621.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\b2eb6ca2-d2b7-4aea-ad45-924d0138e7f9.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\bfdfbce0-a942-41fe-b84e-039e9e11124b.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\c5eceba9-b1b5-4764-95d2-46c4b430517a.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\cc0c4321-2468-43ef-bbca-5bd58ad9d1c7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\d5ddb29e-17c0-4f00-98fd-5dd9265551d3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\d5e77ad9-585a-41f7-aa51-3a35a57e04eb.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\de292ee2-6ccc-4f9a-b481-3fa343fd0b38.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\e2b7c6e2-805a-473d-a3dd-a473b51318ba.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\ea5bc86b-ca2d-4d4a-8723-3d420b090e08.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\ecf20aa7-54e0-45f2-8282-afa2202a97e7.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\fd9880e0-3a99-41d9-a0f7-3d6b8485a7cd.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\uploads\fdbef2cb-d8bf-41e0-9be1-9a1b8ed2eb96.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\" />
+    <Folder Include="wwwroot\api\" />
+    <Folder Include="wwwroot\assets\" />
+  </ItemGroup>
+
+  <!-- Auto-generated Open API specification and Angular TypeScript clients -->
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' And '$(SkipNSwag)' != 'True' ">
+    <Exec ConsoleToMSBuild="true" ContinueOnError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net80) run config.nswag /variables:Configuration=$(Configuration)">
+      <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />
+      <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />
+    </Exec>
+<!--    <Message Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' == '0'" Importance="low" />-->
+<!--    <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'" />-->
+  </Target>
+  
+</Project>

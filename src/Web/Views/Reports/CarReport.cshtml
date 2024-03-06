@@ -1,0 +1,159 @@
+@using Mac.CarHub.Application.Common.Models
+@* @page *@
+@model CarReportModel
+
+@{
+    // ViewData["Title"] = "Car Report";
+}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+</script>
+
+<style>
+    /* Define page size for printing */
+    /*#media print {*/
+    /*    #page {*/
+    /*        size: A4;*/
+    /*        margin: 1cm; !* Adjust margin as needed *!*/
+    /*    }*/
+    /*}*/
+
+    /* Table styles */
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000;
+        page-break-inside: auto; /* Ensure table rows don't break across pages */
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #000;
+        padding: 8px;
+    }
+
+    /* Ensure table headers repeat on each printed page */
+    
+   /* media print {*/
+   /*     thead { display: table-header-group; }*/
+   /* }*/
+</style>
+
+
+<div class="container mx-auto p-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-semibold mb-4">Car Report</h1>
+        <p class="text-sm">Generated on: @DateTime.Now</p>
+        <p class="text-sm">Company Name: Your Company</p>
+        <!-- Add any other header content here -->
+    </div>
+
+    <!-- Entered Cars section -->
+    <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">Entered Cars</h2>
+        <div class="table-container">
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                    <tr class="bg-gray-200">
+                        <th>Id</th>
+                        <th>Engine Serial Number</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Color</th>
+                        <th>Inspection Status</th>
+                        <th>Release Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var car in Model.EnteredCars)
+                    {
+                        <tr class="bg-white">
+                            <td>@car.Id</td>
+                            <td>@car.EngineSerialNumber</td>
+                            <td>@car.Model.Name</td>
+                            <td>@car.Year</td>
+                            <td>@car.Color.EnName</td>
+                            <td>
+                                @* @if (car.Inspection != null) *@
+                                @* { *@
+                                @*     <span class="text-green-600">Passed</span> *@
+                                @* } *@
+                                @* else *@
+                                @* { *@
+                                @*     <span class="text-red-600">Pending</span> *@
+                                @* } *@
+                            </td>
+                            <td>
+                                @if (car.Release != null)
+                                {
+                                    <span class="text-green-600">Released</span>
+                                }
+                                else
+                                {
+                                    <span class="text-red-600">Pending</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Overall Car Activities section -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-4">Overall Car Activities in Last 30 Days</h2>
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                        <tr class="bg-gray-200">
+                            <th>Date</th>
+                            <th>Event Type</th>
+                            <th>Description</th>
+                            <th>Car</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var activity in Model.OverallActivities)
+                        {
+                            <tr class="bg-white">
+                                <td>@activity.Created</td>
+                                <td>@activity.EventType</td>
+                                <td>@activity.Description</td>
+                                <td>@activity.Car.EngineSerialNumber</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8">
+                <p class="text-sm">&copy; 2024 Your Company. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>

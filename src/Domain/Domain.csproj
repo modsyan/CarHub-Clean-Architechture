@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Mac.CarHub.Domain</RootNamespace>
+    <AssemblyName>Mac.CarHub.Domain</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\TodoItem.cs" />
+    <Compile Remove="Entities\TodoList.cs" />
+    <Compile Remove="Events\TodoItemCompletedEvent.cs" />
+    <Compile Remove="Events\TodoItemCreatedEvent.cs" />
+    <Compile Remove="Events\TodoItemDeletedEvent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
+</Project>

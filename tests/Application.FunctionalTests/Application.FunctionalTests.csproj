@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Mac.CarHub.Application.FunctionalTests</RootNamespace>
+        <AssemblyName>Mac.CarHub.Application.FunctionalTests</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+      <None Remove="TodoItems\**" />
+      <None Remove="TodoLists\**" />
+      <None Remove="Orders\**" />
+      <None Remove="Brokers\Commands\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="nunit" />
+        <PackageReference Include="NUnit.Analyzers">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="NUnit3TestAdapter" />
+        <PackageReference Include="coverlet.collector" />
+        <PackageReference Include="FluentAssertions" />
+        <PackageReference Include="Moq" />
+        <PackageReference Include="Respawn" />
+        <PackageReference Include="Testcontainers.MsSql" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Web\Web.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Brokers\" />
+      <Folder Include="Cars\" />
+      <Folder Include="Owners\Commands\" />
+      <Folder Include="Owners\Queries\" />
+      <Folder Include="Parking\Commands\" />
+      <Folder Include="Parking\Queries\" />
+      <Folder Include="Releasing\Commands\" />
+      <Folder Include="Releasing\Queries\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Compile Remove="TodoItems\**" />
+      <Compile Remove="TodoLists\**" />
+      <Compile Remove="Orders\**" />
+      <Compile Remove="Brokers\Commands\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <EmbeddedResource Remove="TodoItems\**" />
+      <EmbeddedResource Remove="TodoLists\**" />
+      <EmbeddedResource Remove="Orders\**" />
+      <EmbeddedResource Remove="Brokers\Commands\**" />
+    </ItemGroup>
+
+</Project>

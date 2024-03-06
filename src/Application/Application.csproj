@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Mac.CarHub.Application</RootNamespace>
+    <AssemblyName>Mac.CarHub.Application</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.GuardClauses"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection"/>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="TodoLists\**"/>
+    <Compile Remove="TodoItems\**"/>
+    <Compile Remove="Common\Extension\EnumLocalizerExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="TodoLists\**"/>
+    <EmbeddedResource Remove="TodoItems\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="TodoLists\**"/>
+    <None Remove="TodoItems\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cars\"/>
+    <Folder Include="Employees\Queries\" />
+    <Folder Include="Lookups\"/>
+    <Folder Include="Owners\"/>
+    <Folder Include="CarEvents\"/>
+    <Folder Include="Reports\" />
+  </ItemGroup>
+
+</Project>

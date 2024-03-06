@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Mac.CarHub.Infrastructure</RootNamespace>
+    <AssemblyName>Mac.CarHub.Infrastructure</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="IronPdf.Slim" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="QuestPDF" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Configurations\TodoItemConfiguration.cs" />
+    <Compile Remove="Data\Configurations\TodoListConfiguration.cs" />
+    <Compile Remove="Data\Migrations-off\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CarMakeApi\" />
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Identity\Models\" />
+  </ItemGroup>
+</Project>
