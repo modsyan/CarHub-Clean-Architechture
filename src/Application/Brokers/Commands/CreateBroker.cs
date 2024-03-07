@@ -19,7 +19,7 @@ public record CreateBrokerCommand : IRequest<BrokerDto>
     public string PhoneNumber { get; init; } = null!;
 
     public string NationalId { get; init; } = null!;
-    public IFormFile ProfilePicture { get; init; } = null!;
+    public IFormFile? ProfilePicture { get; init; }
 }
 
 public class CreateBrokerCommandValidator : AbstractValidator<CreateBrokerCommand>
@@ -69,9 +69,9 @@ public class CreateBrokerCommandValidator : AbstractValidator<CreateBrokerComman
             .MinimumLength(7).WithMessage(_localizer[SharedResourcesKeys.ERR_REGEX_PHONE_NO])
             .MaximumLength(15).WithMessage(_localizer[SharedResourcesKeys.ERR_REGEX_PHONE_NO]);
 
-        RuleFor(v => v.ProfilePicture)
-            .NotNull().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED])
-            .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED]);
+        // RuleFor(v => v.ProfilePicture)
+        //     .NotNull().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED])
+        //     .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED]);
     }
 
     private async Task<bool> BeUniqueUsername(string username, CancellationToken cancellationToken)
@@ -92,51 +92,33 @@ public class CreateBrokerCommandHandler : IRequestHandler<CreateBrokerCommand, B
     private readonly IMapper _mapper;
     private readonly IStringLocalizer<CreateBrokerCommandHandler> _localizer;
     private readonly IFileService _fileService;
+    private readonly IAvatarGeneratorService _avatarGeneratorService;
 
     public CreateBrokerCommandHandler(IApplicationDbContext context, IIdentityService identityService, IMapper mapper,
-        IStringLocalizer<CreateBrokerCommandHandler> localizer, IFileService fileService)
+        IStringLocalizer<CreateBrokerCommandHandler> localizer, IFileService fileService,
+        IAvatarGeneratorService avatarGeneratorService)
     {
         _context = context;
         _identityService = identityService;
         _mapper = mapper;
         _localizer = localizer;
         _fileService = fileService;
+        _avatarGeneratorService = avatarGeneratorService;
     }
 
     public async Task<BrokerDto> Handle(CreateBrokerCommand request, CancellationToken cancellationToken)
     {
-        // var broker = new Broker
-        // {
-        //     Name = request.Name,
-        //     Email = request.Email,
-        //     PhoneNumber = request.PhoneNumber,
-        //     ProfilePicture = _fileService.SaveFile(request.ProfilePicture),
-        //     Username = request.Username
-        // };
-
-        var user = new CreateUserCommand
-        {
-            UserName = request.Username,
-            Password = $"@A2024{request.Username}",
-            FirstName = request.Name.Split(' ')[0],
-            LastName = request.Name.Split(' ')[1],
-            RoleId = Roles.Broker,
-            PersonalPhoto = request.ProfilePicture,
-        };
+        var user = await CreateUserCommand(request);
 
         (_, UserDetailsResponse? createdUser) = await _identityService.CreateUserAsync(user, cancellationToken);
 
-        // if (createdUser is null)
-        //     throw new Exception(_localizer[SharedResourcesKeys.ERR_CREATE_FAILED]);
+        if (createdUser is null) throw new Exception(_localizer[SharedResourcesKeys.ERR_CREATE_FAILED]);
 
-        Guard.Against.Null(createdUser);
+        // Guard.Against.Null(createdUser);
 
         var broker = new Broker { UserId = createdUser.Id };
 
         await _context.Brokers.AddAsync(broker, cancellationToken);
-
-        // if (await _context.SaveChangesAsync(cancellationToken) >= 0)
-        //     throw new Exception(_localizer[SharedResourcesKeys.ERR_CREATE_FAILED]);
 
         await _context.SaveChangesAsync(cancellationToken);
 
@@ -145,5 +127,16 @@ public class CreateBrokerCommandHandler : IRequestHandler<CreateBrokerCommand, B
         brokerDto.UserDetails = createdUser;
 
         return brokerDto;
+    }
+
+    private async Task<CreateUserCommand> CreateUserCommand(CreateBrokerCommand request)
+    {
+        var user = new CreateUserCommand(request.Username, $"@Mac2024_{request.Username}", request.Name, Roles.Broker);
+
+        user = request.ProfilePicture is not null
+            ? user.WithPersonalPhoto(request.ProfilePicture)
+            : user.WithDefaultAvatar(await _avatarGeneratorService.GetBrokerAvatar());
+
+        return user;
     }
 }

@@ -1,5 +1,6 @@
 using Mac.CarHub.Application.Brokers.Commands;
 using Mac.CarHub.Application.Brokers.Queries;
+using Mac.CarHub.Application.Common.Interfaces;
 using Mac.CarHub.Application.Common.Models.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -17,6 +18,14 @@ public class Brokers : EndpointGroupBase
             .MapPost(CreateBroker)
             .MapPut(EditBroker, "{id:guid}")
             .MapDelete(DeleteBroker, "{id:guid}");
+
+        app.MapGroup(this)
+            .MapGet("Test",
+                async (IAvatarGeneratorService avatarGeneratorService, IFileService fileService) =>
+                {
+                    // return await avatarGeneratorService.AvatarsWithInitialsFromNames("Muhammad", "Hamdy");
+                    return await avatarGeneratorService.GetBrokerAvatar();
+                });
     }
 
     private static async Task<Results<Ok<BrokerDto>, NotFound>> GetBroker(ISender sender, [FromRoute] Guid id)

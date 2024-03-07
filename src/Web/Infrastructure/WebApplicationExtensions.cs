@@ -13,8 +13,8 @@ public static class WebApplicationExtensions
                 .WithGroupName(groupName)
                 .WithTags(groupName)
                 .WithOpenApi() // moving from IEndpointRouteBuilderExtensions.MapGet it is causes a bug in post IFormFileCollection
-                .AddEndpointFilter<ApiKeyAuthenticationEndpointFilter>()
-                .RequireAuthorization()
+                // .AddEndpointFilter<ApiKeyAuthenticationEndpointFilter>()
+                // .RequireAuthorization()
             ;
     }
 

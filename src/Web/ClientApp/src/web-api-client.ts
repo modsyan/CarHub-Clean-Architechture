@@ -790,6 +790,45 @@ export class BrokersClient {
         }
         return Promise.resolve<BrokerDto>(null as any);
     }
+
+    /**
+     * @param accept_Language (optional) Language preference for the response.
+     */
+    getApiBrokersTest(accept_Language: AcceptLanguage16 | undefined): Promise<UploadedFile> {
+        let url_ = this.baseUrl + "/api/Brokers/Test";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept-Language": accept_Language !== undefined && accept_Language !== null ? "" + accept_Language : "",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetApiBrokersTest(_response);
+        });
+    }
+
+    protected processGetApiBrokersTest(response: Response): Promise<UploadedFile> {
+        followIfLoginRedirect(response);
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UploadedFile.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<UploadedFile>(null as any);
+    }
 }
 
 export class CarsClient {
@@ -808,7 +847,7 @@ export class CarsClient {
      * @param searchString (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getCars(pageNumber: number | undefined, pageSize: number | undefined, searchString: string | undefined, accept_Language: AcceptLanguage16 | undefined): Promise<CarVm> {
+    getCars(pageNumber: number | undefined, pageSize: number | undefined, searchString: string | undefined, accept_Language: AcceptLanguage17 | undefined): Promise<CarVm> {
         let url_ = this.baseUrl + "/api/Cars?";
         if (pageNumber === null)
             throw new Error("The parameter 'pageNumber' cannot be null.");
@@ -867,7 +906,7 @@ export class CarsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getCarDetails(id: string, accept_Language: AcceptLanguage17 | undefined): Promise<CarDto> {
+    getCarDetails(id: string, accept_Language: AcceptLanguage18 | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Cars/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -917,7 +956,7 @@ export class CarsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    editCar(id: string, accept_Language: AcceptLanguage18 | undefined, command: EditCarCommand): Promise<CarDto> {
+    editCar(id: string, accept_Language: AcceptLanguage19 | undefined, command: EditCarCommand): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Cars/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -975,7 +1014,7 @@ export class CarsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteCar(id: string, accept_Language: AcceptLanguage19 | undefined): Promise<CarDto> {
+    deleteCar(id: string, accept_Language: AcceptLanguage20 | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Cars/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1037,7 +1076,7 @@ export class DocumentsClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param files (optional) 
      */
-    createDocument(carId: string, title: string, accept_Language: AcceptLanguage20 | undefined, files: FileParameter | null | undefined): Promise<CarDto> {
+    createDocument(carId: string, title: string, accept_Language: AcceptLanguage21 | undefined, files: FileParameter | null | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Documents?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -1099,7 +1138,7 @@ export class DocumentsClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param file (optional) 
      */
-    editDocument(id: string, title: string | null | undefined, accept_Language: AcceptLanguage21 | undefined, file: FileParameter | null | undefined): Promise<CarDto> {
+    editDocument(id: string, title: string | null | undefined, accept_Language: AcceptLanguage22 | undefined, file: FileParameter | null | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Documents/{id}?";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1160,7 +1199,7 @@ export class DocumentsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteDocument(id: string, accept_Language: AcceptLanguage22 | undefined): Promise<boolean> {
+    deleteDocument(id: string, accept_Language: AcceptLanguage23 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Documents/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1212,7 +1251,7 @@ export class DocumentsClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param files (optional) 
      */
-    createManyDocuments(carId: string, titles: string[], accept_Language: AcceptLanguage23 | undefined, files: any[] | null | undefined): Promise<CarDto> {
+    createManyDocuments(carId: string, titles: string[], accept_Language: AcceptLanguage24 | undefined, files: any[] | null | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Documents/List?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -1272,7 +1311,7 @@ export class DocumentsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteManyDocuments(documentIds: string[], accept_Language: AcceptLanguage24 | undefined): Promise<boolean> {
+    deleteManyDocuments(documentIds: string[], accept_Language: AcceptLanguage25 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Documents/List?";
         if (documentIds === undefined || documentIds === null)
             throw new Error("The parameter 'documentIds' must be defined and cannot be null.");
@@ -1325,7 +1364,7 @@ export class DocumentsClient {
      * @param carId (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getDocumentsFromTrash(carId: string | null | undefined, accept_Language: AcceptLanguage25 | undefined): Promise<PaginatedListOfDocumentDto> {
+    getDocumentsFromTrash(carId: string | null | undefined, accept_Language: AcceptLanguage26 | undefined): Promise<PaginatedListOfDocumentDto> {
         let url_ = this.baseUrl + "/api/Documents/Trash?";
         if (carId !== undefined && carId !== null)
             url_ += "carId=" + encodeURIComponent("" + carId) + "&";
@@ -1374,7 +1413,7 @@ export class DocumentsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    restoreDocumentFromTrash(id: string, accept_Language: AcceptLanguage26 | undefined): Promise<boolean> {
+    restoreDocumentFromTrash(id: string, accept_Language: AcceptLanguage27 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Documents/Trash/Restore/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1425,7 +1464,7 @@ export class DocumentsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    emptyDocumentTrash(carId: string, accept_Language: AcceptLanguage27 | undefined): Promise<boolean> {
+    emptyDocumentTrash(carId: string, accept_Language: AcceptLanguage28 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Documents/Trash/Delete?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -1477,7 +1516,7 @@ export class DocumentsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteDocumentPermanently(id: string, accept_Language: AcceptLanguage28 | undefined): Promise<boolean> {
+    deleteDocumentPermanently(id: string, accept_Language: AcceptLanguage29 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Documents/Trash/Delete/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1540,7 +1579,7 @@ export class InspectionsClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param file (optional) 
      */
-    createInspection(carId: string, title: string, accept_Language: AcceptLanguage29 | undefined, file: FileParameter | null | undefined): Promise<CarDto> {
+    createInspection(carId: string, title: string, accept_Language: AcceptLanguage30 | undefined, file: FileParameter | null | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Inspections?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -1602,7 +1641,7 @@ export class InspectionsClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param file (optional) 
      */
-    editInspection(id: string, title: string | null | undefined, accept_Language: AcceptLanguage30 | undefined, file: FileParameter | null | undefined): Promise<CarDto> {
+    editInspection(id: string, title: string | null | undefined, accept_Language: AcceptLanguage31 | undefined, file: FileParameter | null | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Inspections/{id}?";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1663,7 +1702,7 @@ export class InspectionsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteInspection(id: string, accept_Language: AcceptLanguage31 | undefined): Promise<boolean> {
+    deleteInspection(id: string, accept_Language: AcceptLanguage32 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Inspections/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1715,7 +1754,7 @@ export class InspectionsClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param files (optional) 
      */
-    createManyInspections(carId: string, titles: string[], accept_Language: AcceptLanguage32 | undefined, files: any[] | null | undefined): Promise<CarDto> {
+    createManyInspections(carId: string, titles: string[], accept_Language: AcceptLanguage33 | undefined, files: any[] | null | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Inspections/List?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -1775,7 +1814,7 @@ export class InspectionsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteManyInspections(inspectionIds: string[], accept_Language: AcceptLanguage33 | undefined): Promise<boolean> {
+    deleteManyInspections(inspectionIds: string[], accept_Language: AcceptLanguage34 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Inspections/List?";
         if (inspectionIds === undefined || inspectionIds === null)
             throw new Error("The parameter 'inspectionIds' must be defined and cannot be null.");
@@ -1828,7 +1867,7 @@ export class InspectionsClient {
      * @param carId (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getInspectionsFromTrash(carId: string | null | undefined, accept_Language: AcceptLanguage34 | undefined): Promise<PaginatedListOfInspectionDto> {
+    getInspectionsFromTrash(carId: string | null | undefined, accept_Language: AcceptLanguage35 | undefined): Promise<PaginatedListOfInspectionDto> {
         let url_ = this.baseUrl + "/api/Inspections/Trash?";
         if (carId !== undefined && carId !== null)
             url_ += "carId=" + encodeURIComponent("" + carId) + "&";
@@ -1877,7 +1916,7 @@ export class InspectionsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    restoreInspectionsFromTrash(id: string, accept_Language: AcceptLanguage35 | undefined): Promise<boolean> {
+    restoreInspectionsFromTrash(id: string, accept_Language: AcceptLanguage36 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Inspections/Trash/Restore/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1928,7 +1967,7 @@ export class InspectionsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    emptyInspectionTrash(carId: string, accept_Language: AcceptLanguage36 | undefined): Promise<boolean> {
+    emptyInspectionTrash(carId: string, accept_Language: AcceptLanguage37 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Inspections/Trash/Delete?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -1980,7 +2019,7 @@ export class InspectionsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteInspectionPermanently(id: string, accept_Language: AcceptLanguage37 | undefined): Promise<boolean> {
+    deleteInspectionPermanently(id: string, accept_Language: AcceptLanguage38 | undefined): Promise<boolean> {
         let url_ = this.baseUrl + "/api/Inspections/Trash/Delete/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2042,7 +2081,7 @@ export class LookupsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getColors(accept_Language: AcceptLanguage38 | undefined): Promise<ColorVm> {
+    getColors(accept_Language: AcceptLanguage39 | undefined): Promise<ColorVm> {
         let url_ = this.baseUrl + "/api/Lookups/colors";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2084,7 +2123,7 @@ export class LookupsClient {
      * @param searchString (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getMakes(pageNumber: number | null | undefined, pageSize: number | null | undefined, searchString: string | null | undefined, accept_Language: AcceptLanguage39 | undefined): Promise<MakeVm> {
+    getMakes(pageNumber: number | null | undefined, pageSize: number | null | undefined, searchString: string | null | undefined, accept_Language: AcceptLanguage40 | undefined): Promise<MakeVm> {
         let url_ = this.baseUrl + "/api/Lookups/makes?";
         if (pageNumber !== undefined && pageNumber !== null)
             url_ += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
@@ -2133,7 +2172,7 @@ export class LookupsClient {
      * @param makeId (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getModels(pageNumber: number | null | undefined, pageSize: number | null | undefined, searchString: string | null | undefined, makeId: number | null | undefined, accept_Language: AcceptLanguage40 | undefined): Promise<ModelVm> {
+    getModels(pageNumber: number | null | undefined, pageSize: number | null | undefined, searchString: string | null | undefined, makeId: number | null | undefined, accept_Language: AcceptLanguage41 | undefined): Promise<ModelVm> {
         let url_ = this.baseUrl + "/api/Lookups/models?";
         if (pageNumber !== undefined && pageNumber !== null)
             url_ += "pageNumber=" + encodeURIComponent("" + pageNumber) + "&";
@@ -2180,7 +2219,7 @@ export class LookupsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getOverall(accept_Language: AcceptLanguage41 | undefined): Promise<OverallDto> {
+    getOverall(accept_Language: AcceptLanguage42 | undefined): Promise<OverallDto> {
         let url_ = this.baseUrl + "/api/Lookups/overall";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2219,7 +2258,7 @@ export class LookupsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getRoles(accept_Language: AcceptLanguage42 | undefined): Promise<RoleVm> {
+    getRoles(accept_Language: AcceptLanguage43 | undefined): Promise<RoleVm> {
         let url_ = this.baseUrl + "/api/Lookups/roles";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2275,7 +2314,7 @@ export class OrdersClient {
      * @param isCompletedOnly (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getOrders(pageNumber: number | undefined, pageSize: number | undefined, searchString: string | undefined, sortBy: string | undefined, sortOrder: string | undefined, isCompletedOnly: boolean | undefined, accept_Language: AcceptLanguage43 | undefined): Promise<OrderVm> {
+    getOrders(pageNumber: number | undefined, pageSize: number | undefined, searchString: string | undefined, sortBy: string | undefined, sortOrder: string | undefined, isCompletedOnly: boolean | undefined, accept_Language: AcceptLanguage44 | undefined): Promise<OrderVm> {
         let url_ = this.baseUrl + "/api/Orders?";
         if (pageNumber === null)
             throw new Error("The parameter 'pageNumber' cannot be null.");
@@ -2346,7 +2385,7 @@ export class OrdersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    launchOrder(modelId: number, year: number, colorId: number, isBroker: boolean, userFullName: string | null, userNationalityId: string | null, releasedAfterInMonths: number, accept_Language: AcceptLanguage44 | undefined): Promise<CarDto> {
+    launchOrder(modelId: number, year: number, colorId: number, isBroker: boolean, userFullName: string | null, userNationalityId: string | null, releasedAfterInMonths: number, accept_Language: AcceptLanguage45 | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Orders?";
         if (modelId === undefined || modelId === null)
             throw new Error("The parameter 'modelId' must be defined and cannot be null.");
@@ -2413,7 +2452,7 @@ export class OrdersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getOrderDetails(id: string, accept_Language: AcceptLanguage45 | undefined): Promise<OrderDto> {
+    getOrderDetails(id: string, accept_Language: AcceptLanguage46 | undefined): Promise<OrderDto> {
         let url_ = this.baseUrl + "/api/Orders/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2459,7 +2498,7 @@ export class OrdersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    completeOrder(id: string, accept_Language: AcceptLanguage46 | undefined): Promise<CarDto> {
+    completeOrder(id: string, accept_Language: AcceptLanguage47 | undefined): Promise<CarDto> {
         let url_ = this.baseUrl + "/api/Orders/complete/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2520,7 +2559,7 @@ export class OwnersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getOwners(accept_Language: AcceptLanguage47 | undefined): Promise<string> {
+    getOwners(accept_Language: AcceptLanguage48 | undefined): Promise<string> {
         let url_ = this.baseUrl + "/api/Owners";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2573,7 +2612,7 @@ export class ParkingSlotsClient {
      * @param pageSize (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getParkingSlots(pageNumber: number | undefined, pageSize: number | undefined, accept_Language: AcceptLanguage48 | undefined): Promise<PaginatedListOfParkingSlotDto> {
+    getParkingSlots(pageNumber: number | undefined, pageSize: number | undefined, accept_Language: AcceptLanguage49 | undefined): Promise<PaginatedListOfParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots?";
         if (pageNumber === null)
             throw new Error("The parameter 'pageNumber' cannot be null.");
@@ -2620,7 +2659,7 @@ export class ParkingSlotsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    addParkingSlot(name: string, capacity: number, description: string, accept_Language: AcceptLanguage49 | undefined): Promise<ParkingSlotDto> {
+    addParkingSlot(name: string, capacity: number, description: string, accept_Language: AcceptLanguage50 | undefined): Promise<ParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots?";
         if (name === undefined || name === null)
             throw new Error("The parameter 'name' must be defined and cannot be null.");
@@ -2679,7 +2718,7 @@ export class ParkingSlotsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getParkingSlotDetails(id: number, accept_Language: AcceptLanguage50 | undefined): Promise<ParkingSlotDto> {
+    getParkingSlotDetails(id: number, accept_Language: AcceptLanguage51 | undefined): Promise<ParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2725,7 +2764,7 @@ export class ParkingSlotsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    editParkingSlot(id: number, accept_Language: AcceptLanguage51 | undefined, command: EditParkingSlotCommand): Promise<ParkingSlotDto> {
+    editParkingSlot(id: number, accept_Language: AcceptLanguage52 | undefined, command: EditParkingSlotCommand): Promise<ParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2783,7 +2822,7 @@ export class ParkingSlotsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteParkingSlot(id: number, accept_Language: AcceptLanguage52 | undefined): Promise<ParkingSlotDto> {
+    deleteParkingSlot(id: number, accept_Language: AcceptLanguage53 | undefined): Promise<ParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2837,7 +2876,7 @@ export class ParkingSlotsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    addCarToSlot(id: number, carId: string, accept_Language: AcceptLanguage53 | undefined): Promise<ParkingSlotDto> {
+    addCarToSlot(id: number, carId: string, accept_Language: AcceptLanguage54 | undefined): Promise<ParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots/{id}/cars?";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2891,7 +2930,7 @@ export class ParkingSlotsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    removeCarFromSlot(carId: string, accept_Language: AcceptLanguage54 | undefined): Promise<ParkingSlotDto> {
+    removeCarFromSlot(carId: string, accept_Language: AcceptLanguage55 | undefined): Promise<ParkingSlotDto> {
         let url_ = this.baseUrl + "/api/ParkingSlots/cars/{carId}";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined.");
@@ -2956,7 +2995,7 @@ export class ReleasingClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getReleasedCars(accept_Language: AcceptLanguage55 | undefined): Promise<ReleaseVm> {
+    getReleasedCars(accept_Language: AcceptLanguage56 | undefined): Promise<ReleaseVm> {
         let url_ = this.baseUrl + "/api/Releasing";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2997,7 +3036,7 @@ export class ReleasingClient {
      * @param accept_Language (optional) Language preference for the response.
      * @param documents (optional) 
      */
-    releaseCar(carId: string, releaseDate: Date | null | undefined, accept_Language: AcceptLanguage56 | undefined, documents: FileParameter | null | undefined): Promise<ReleaseDto> {
+    releaseCar(carId: string, releaseDate: Date | null | undefined, accept_Language: AcceptLanguage57 | undefined, documents: FileParameter | null | undefined): Promise<ReleaseDto> {
         let url_ = this.baseUrl + "/api/Releasing?";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined and cannot be null.");
@@ -3055,7 +3094,7 @@ export class ReleasingClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getReleasedCarDetails(carId: string, accept_Language: AcceptLanguage57 | undefined): Promise<ReleaseDto> {
+    getReleasedCarDetails(carId: string, accept_Language: AcceptLanguage58 | undefined): Promise<ReleaseDto> {
         let url_ = this.baseUrl + "/api/Releasing/{carId}";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined.");
@@ -3101,7 +3140,7 @@ export class ReleasingClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    editRelease(carId: string, accept_Language: AcceptLanguage58 | undefined, command: EditReleaseCommand): Promise<ReleaseDto> {
+    editRelease(carId: string, accept_Language: AcceptLanguage59 | undefined, command: EditReleaseCommand): Promise<ReleaseDto> {
         let url_ = this.baseUrl + "/api/Releasing/{carId}";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined.");
@@ -3159,7 +3198,7 @@ export class ReleasingClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    deleteRelease(carId: string, accept_Language: AcceptLanguage59 | undefined): Promise<ReleaseDto> {
+    deleteRelease(carId: string, accept_Language: AcceptLanguage60 | undefined): Promise<ReleaseDto> {
         let url_ = this.baseUrl + "/api/Releasing/{carId}";
         if (carId === undefined || carId === null)
             throw new Error("The parameter 'carId' must be defined.");
@@ -3224,7 +3263,7 @@ export class ReportsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getCarReport(accept_Language: AcceptLanguage60 | undefined): Promise<void> {
+    getCarReport(accept_Language: AcceptLanguage61 | undefined): Promise<void> {
         let url_ = this.baseUrl + "/api/Reports";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3275,7 +3314,7 @@ export class UpComingEventsClient {
      * @param sortOrder (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getUpcomingEvents(startDate: Date | null | undefined, endDate: Date | null | undefined, pageNumber: number | undefined, pageSize: number | undefined, sortOrder: string | undefined, accept_Language: AcceptLanguage61 | undefined): Promise<UpcomingEventVm> {
+    getUpcomingEvents(startDate: Date | null | undefined, endDate: Date | null | undefined, pageNumber: number | undefined, pageSize: number | undefined, sortOrder: string | undefined, accept_Language: AcceptLanguage62 | undefined): Promise<UpcomingEventVm> {
         let url_ = this.baseUrl + "/api/UpComingEvents?";
         if (startDate !== undefined && startDate !== null)
             url_ += "startDate=" + encodeURIComponent(startDate ? "" + startDate.toISOString() : "") + "&";
@@ -3330,7 +3369,7 @@ export class UpComingEventsClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getUpcomingEventDetails(date: Date, accept_Language: AcceptLanguage62 | undefined): Promise<UpcomingEventVm> {
+    getUpcomingEventDetails(date: Date, accept_Language: AcceptLanguage63 | undefined): Promise<UpcomingEventVm> {
         let url_ = this.baseUrl + "/api/UpComingEvents/{date}";
         if (date === undefined || date === null)
             throw new Error("The parameter 'date' must be defined.");
@@ -3389,7 +3428,7 @@ export class UsersClient {
      * @param pageSize (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    getUsers(pageNumber: number | undefined, pageSize: number | undefined, accept_Language: AcceptLanguage63 | undefined): Promise<PaginatedListOfApplicationUserDto> {
+    getUsers(pageNumber: number | undefined, pageSize: number | undefined, accept_Language: AcceptLanguage64 | undefined): Promise<PaginatedListOfApplicationUserDto> {
         let url_ = this.baseUrl + "/api/Users?";
         if (pageNumber === null)
             throw new Error("The parameter 'pageNumber' cannot be null.");
@@ -3436,7 +3475,7 @@ export class UsersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    createUser(accept_Language: AcceptLanguage64 | undefined, cmd: CreateUserCommand): Promise<string> {
+    createUser(accept_Language: AcceptLanguage65 | undefined, cmd: CreateUserCommand): Promise<string> {
         let url_ = this.baseUrl + "/api/Users";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3494,7 +3533,7 @@ export class UsersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getMe(accept_Language: AcceptLanguage65 | undefined): Promise<UserDetailsResponse> {
+    getMe(accept_Language: AcceptLanguage66 | undefined): Promise<UserDetailsResponse> {
         let url_ = this.baseUrl + "/api/Users/me";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3548,7 +3587,7 @@ export class AuthenticationClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    refreshToken(accept_Language: AcceptLanguage66 | undefined, refreshRequest: RefreshRequest): Promise<AccessTokenResponse> {
+    refreshToken(accept_Language: AcceptLanguage67 | undefined, refreshRequest: RefreshRequest): Promise<AccessTokenResponse> {
         let url_ = this.baseUrl + "/api/Authentication/refresh-token";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3592,7 +3631,7 @@ export class AuthenticationClient {
      * @param changedEmail (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    confirmEmail(userId: string, code: string, changedEmail: string | null | undefined, accept_Language: AcceptLanguage67 | undefined): Promise<void> {
+    confirmEmail(userId: string, code: string, changedEmail: string | null | undefined, accept_Language: AcceptLanguage68 | undefined): Promise<void> {
         let url_ = this.baseUrl + "/api/Authentication/confirm-email?";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined and cannot be null.");
@@ -3637,7 +3676,7 @@ export class AuthenticationClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    resendConfirmationEmail(accept_Language: AcceptLanguage68 | undefined, resendRequest: ResendConfirmationEmailRequest): Promise<void> {
+    resendConfirmationEmail(accept_Language: AcceptLanguage69 | undefined, resendRequest: ResendConfirmationEmailRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Authentication/resend-confirmation-email";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3676,7 +3715,7 @@ export class AuthenticationClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    forgotPassword(accept_Language: AcceptLanguage69 | undefined, resetRequest: ForgotPasswordRequest): Promise<void> {
+    forgotPassword(accept_Language: AcceptLanguage70 | undefined, resetRequest: ForgotPasswordRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Authentication/forgot-password";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3722,7 +3761,7 @@ export class AuthenticationClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    resetPassword(accept_Language: AcceptLanguage70 | undefined, resetRequest: ResetPasswordRequest): Promise<void> {
+    resetPassword(accept_Language: AcceptLanguage71 | undefined, resetRequest: ResetPasswordRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Authentication/reset-password";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3770,7 +3809,7 @@ export class AuthenticationClient {
      * @param useSessionCookies (optional) 
      * @param accept_Language (optional) Language preference for the response.
      */
-    postApiAuthenticationLogin(useCookies: boolean | null | undefined, useSessionCookies: boolean | null | undefined, accept_Language: AcceptLanguage71 | undefined, login: LoginRequest2): Promise<AccessTokenResponse> {
+    postApiAuthenticationLogin(useCookies: boolean | null | undefined, useSessionCookies: boolean | null | undefined, accept_Language: AcceptLanguage72 | undefined, login: LoginRequest2): Promise<AccessTokenResponse> {
         let url_ = this.baseUrl + "/api/Authentication/login?";
         if (useCookies !== undefined && useCookies !== null)
             url_ += "useCookies=" + encodeURIComponent("" + useCookies) + "&";
@@ -4698,6 +4737,129 @@ export interface IEditBrokerCommand {
     phoneNumber?: string | undefined;
     nationalId?: string | undefined;
     profilePicture?: string | undefined;
+}
+
+export abstract class BaseEntity implements IBaseEntity {
+    id?: string;
+    domainEvents?: BaseEvent[];
+
+    constructor(data?: IBaseEntity) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            if (Array.isArray(_data["domainEvents"])) {
+                this.domainEvents = [] as any;
+                for (let item of _data["domainEvents"])
+                    this.domainEvents!.push(BaseEvent.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): BaseEntity {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'BaseEntity' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        if (Array.isArray(this.domainEvents)) {
+            data["domainEvents"] = [];
+            for (let item of this.domainEvents)
+                data["domainEvents"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IBaseEntity {
+    id?: string;
+    domainEvents?: BaseEvent[];
+}
+
+export class UploadedFile extends BaseEntity implements IUploadedFile {
+    filePath?: string;
+    fileName?: string;
+    originalFileName?: string;
+    contentType?: string;
+    fileSize?: number;
+
+    constructor(data?: IUploadedFile) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.filePath = _data["filePath"];
+            this.fileName = _data["fileName"];
+            this.originalFileName = _data["originalFileName"];
+            this.contentType = _data["contentType"];
+            this.fileSize = _data["fileSize"];
+        }
+    }
+
+    static override fromJS(data: any): UploadedFile {
+        data = typeof data === 'object' ? data : {};
+        let result = new UploadedFile();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filePath"] = this.filePath;
+        data["fileName"] = this.fileName;
+        data["originalFileName"] = this.originalFileName;
+        data["contentType"] = this.contentType;
+        data["fileSize"] = this.fileSize;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IUploadedFile extends IBaseEntity {
+    filePath?: string;
+    fileName?: string;
+    originalFileName?: string;
+    contentType?: string;
+    fileSize?: number;
+}
+
+export abstract class BaseEvent implements IBaseEvent {
+
+    constructor(data?: IBaseEvent) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): BaseEvent {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'BaseEvent' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data;
+    }
+}
+
+export interface IBaseEvent {
 }
 
 export class CarVm implements ICarVm {
@@ -6390,6 +6552,7 @@ export class CreateUserCommand implements ICreateUserCommand {
     firstName?: string | undefined;
     lastName?: string | undefined;
     personalPhoto?: string | undefined;
+    defaultAvatar?: UploadedFile | undefined;
     roleId?: string;
 
     constructor(data?: ICreateUserCommand) {
@@ -6408,6 +6571,7 @@ export class CreateUserCommand implements ICreateUserCommand {
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.personalPhoto = _data["personalPhoto"];
+            this.defaultAvatar = _data["defaultAvatar"] ? UploadedFile.fromJS(_data["defaultAvatar"]) : <any>undefined;
             this.roleId = _data["roleId"];
         }
     }
@@ -6426,6 +6590,7 @@ export class CreateUserCommand implements ICreateUserCommand {
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["personalPhoto"] = this.personalPhoto;
+        data["defaultAvatar"] = this.defaultAvatar ? this.defaultAvatar.toJSON() : <any>undefined;
         data["roleId"] = this.roleId;
         return data;
     }
@@ -6437,6 +6602,7 @@ export interface ICreateUserCommand {
     firstName?: string | undefined;
     lastName?: string | undefined;
     personalPhoto?: string | undefined;
+    defaultAvatar?: UploadedFile | undefined;
     roleId?: string;
 }
 
@@ -6839,6 +7005,11 @@ export enum AcceptLanguage70 {
 }
 
 export enum AcceptLanguage71 {
+    ArEG = "ar-EG",
+    EnUS = "en-US",
+}
+
+export enum AcceptLanguage72 {
     ArEG = "ar-EG",
     EnUS = "en-US",
 }

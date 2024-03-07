@@ -109,6 +109,8 @@ app.UseExceptionHandler(options =>
 
 app.Map("/", () => Results.Redirect("/api"));
 
+app.UseStaticFiles();
+
 app.MapEndpoints();
 
 app.Run();

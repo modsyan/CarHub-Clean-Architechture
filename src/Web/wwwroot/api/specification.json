@@ -889,6 +889,43 @@
         }
       }
     },
+    "/api/Brokers/Test": {
+      "get": {
+        "tags": [
+          "Brokers"
+        ],
+        "operationId": "GetApiBrokersTest",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "Language preference for the response.",
+            "schema": {
+              "type": "string",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "ar-EG",
+                "en-US"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadedFile"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Cars": {
       "get": {
         "tags": [
@@ -4683,6 +4720,57 @@
           }
         }
       },
+      "UploadedFile": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "filePath": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "originalFileName": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "fileSize": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "BaseEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "domainEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseEvent"
+            }
+          }
+        }
+      },
+      "BaseEvent": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
       "CarVm": {
         "type": "object",
         "additionalProperties": false,
@@ -5387,6 +5475,14 @@
             "type": "string",
             "format": "binary",
             "nullable": true
+          },
+          "defaultAvatar": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/UploadedFile"
+              }
+            ]
           },
           "roleId": {
             "type": "string"

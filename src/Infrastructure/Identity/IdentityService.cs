@@ -5,6 +5,7 @@ using Mac.CarHub.Application.Common.Models.Identity;
 using Mac.CarHub.Application.Lookups.Roles.Queries.GetRoles;
 using Mac.CarHub.Application.Models;
 using Mac.CarHub.Domain.Constants;
+using Mac.CarHub.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -55,10 +56,15 @@ public class IdentityService(
         };
 
         if (cmd.PersonalPhoto is not null)
+        {
             user.ProfilePicture = await fileService.SaveToDiskAsync(cmd.PersonalPhoto, cancellationToken);
+        }
+        else if (cmd.DefaultAvatar is not null)
+        {
+            user.ProfilePicture = cmd.DefaultAvatar;
+        }
 
         var result = await userManager.CreateAsync(user, cmd.Password);
-
 
         if (!result.Succeeded)
         {

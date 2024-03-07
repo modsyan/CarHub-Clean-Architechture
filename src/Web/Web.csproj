@@ -131,7 +131,6 @@
   <ItemGroup>
     <Folder Include="ClientApp\" />
     <Folder Include="wwwroot\api\" />
-    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
   <!-- Auto-generated Open API specification and Angular TypeScript clients -->

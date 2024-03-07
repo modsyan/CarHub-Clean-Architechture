@@ -85,34 +85,37 @@ public class LaunchOrderCommandHandler : IRequestHandler<LaunchOrderCommand, Car
     private readonly IMapper _mapper;
     private readonly IStringLocalizer<LaunchOrderCommandHandler> _localizer;
     private readonly IIdentityService _identityService;
+    private readonly IAvatarGeneratorService _avatarGeneratorService;
 
     public LaunchOrderCommandHandler(IApplicationDbContext context, IMapper mapper,
-        IStringLocalizer<LaunchOrderCommandHandler> localizer, IIdentityService identityService)
+        IStringLocalizer<LaunchOrderCommandHandler> localizer, IIdentityService identityService,
+        IAvatarGeneratorService avatarGeneratorService)
     {
         _context = context;
         _mapper = mapper;
         _localizer = localizer;
         _identityService = identityService;
+        _avatarGeneratorService = avatarGeneratorService;
     }
 
     public async Task<CarDto> Handle(LaunchOrderCommand request, CancellationToken cancellationToken)
     {
         var car = new Car { ModelId = request.ModelId, Year = request.Year, ColorId = request.ColorId, };
 
-        var user = new CreateUserCommand
-        {
-            UserName = request.UserFullName + request.UserNationalityId[.. 4],
-            Password = "Password",
-            FirstName = request.UserFullName.Split(' ')[0],
-            LastName = request.UserFullName.Split(' ')[1],
-        };
+        var user = new CreateUserCommand(
+                userName: request.UserFullName + request.UserNationalityId[.. 4],
+                password: $"@Mac2024_2023",
+                fullName: request.UserFullName,
+                roleId: Roles.User)
+            .WithDefaultAvatar(await _avatarGeneratorService.GetUserAvatar());
 
         // if (request.IsBroker)
         //     user.Role = "Broker";
         // else
         //     user.Role = "User";
 
-        (Result result, UserDetailsResponse? newUser) = await _identityService.CreateUserAsync(user, cancellationToken);
+        (Result result, UserDetailsResponse? newUser) =
+            await _identityService.CreateUserAsync(user, cancellationToken);
 
         if (!result.Succeeded || newUser is null) throw new BadRequestException();
 
