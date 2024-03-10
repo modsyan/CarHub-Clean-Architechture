@@ -104,8 +104,11 @@ public class LaunchOrderCommandHandler : IRequestHandler<LaunchOrderCommand, Car
 
         var user = new CreateUserCommand(
                 userName: request.UserFullName + request.UserNationalityId[.. 4],
-                password: $"@Mac2024_2023",
+                (string)$"@Mac2024_2023",
                 fullName: request.UserFullName,
+                email: string.Empty,
+                phoneNumber: string.Empty,
+                request.UserNationalityId,
                 roleId: Roles.User)
             .WithDefaultAvatar(await _avatarGeneratorService.GetUserAvatar());
 

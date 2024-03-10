@@ -21,10 +21,17 @@ public class Brokers : EndpointGroupBase
 
         app.MapGroup(this)
             .MapGet("Test",
-                async (IAvatarGeneratorService avatarGeneratorService, IFileService fileService) =>
+                async (IWebHostEnvironment env, IAvatarGeneratorService avatarGeneratorService) =>
                 {
-                    // return await avatarGeneratorService.AvatarsWithInitialsFromNames("Muhammad", "Hamdy");
-                    return await avatarGeneratorService.GetBrokerAvatar();
+                    // return await avatarGeneratorService.AvatarsWithInitialsFromNames("Bassil", "Abo");
+                    // return await avatarGeneratorService.GetBrokerAvatar();
+
+                    // var file = await avatarGeneratorService.GetRandomAvatar();
+                    var file = await avatarGeneratorService.GetRandomAvatarMenOnly();
+
+                    if (file == null) return null;
+
+                    return $"https://localhost:3001{file.FilePath}";
                 });
     }
 

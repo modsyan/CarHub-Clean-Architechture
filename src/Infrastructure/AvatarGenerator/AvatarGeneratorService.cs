@@ -37,6 +37,7 @@ public class AvatarGeneratorService : IAvatarGeneratorService
 
     // remote
     private const string BasicRandomAvatarUrl = "https://avatar.iran.liara.run/public";
+    private const string BasicRandomAvatarUrlMenOnly = "https://avatar.iran.liara.run/public/boy";
 
 
     public async Task<UploadedFile> GetBrokerAvatar() =>
@@ -54,6 +55,11 @@ public class AvatarGeneratorService : IAvatarGeneratorService
 
     public async Task<UploadedFile?> GetRandomAvatar() =>
         await GetRemoteAvatar(BasicRandomAvatarUrl);
+    
+    
+    public async Task<UploadedFile?> GetRandomAvatarMenOnly() =>
+        await GetRemoteAvatar(BasicRandomAvatarUrlMenOnly);
+    
 
     private async Task<UploadedFile> GetLocalAvatar(string filePath)
     {

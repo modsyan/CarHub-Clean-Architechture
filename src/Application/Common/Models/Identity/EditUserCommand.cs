@@ -17,4 +17,8 @@ public class EditUserCommand
     public string? NationalId { get; init; } = null!;
 
     public IFormFile? ProfilePicture { get; init; } = null!;
+    
+    public string? FistName => Name?.Split(' ', 2)[0];
+    
+    public string? LastName => Name?.Split(' ', 2)[1];
 }

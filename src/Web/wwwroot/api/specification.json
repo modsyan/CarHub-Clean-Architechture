@@ -918,7 +918,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UploadedFile"
+                  "type": "string"
                 }
               }
             }
@@ -4639,6 +4639,18 @@
           "userName": {
             "type": "string"
           },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalId": {
+            "type": "string",
+            "nullable": true
+          },
           "email": {
             "type": "string",
             "nullable": true
@@ -4719,57 +4731,6 @@
             "nullable": true
           }
         }
-      },
-      "UploadedFile": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseEntity"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "filePath": {
-                "type": "string"
-              },
-              "fileName": {
-                "type": "string"
-              },
-              "originalFileName": {
-                "type": "string"
-              },
-              "contentType": {
-                "type": "string"
-              },
-              "fileSize": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "BaseEntity": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
-          },
-          "domainEvents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BaseEvent"
-            }
-          }
-        }
-      },
-      "BaseEvent": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false
       },
       "CarVm": {
         "type": "object",
@@ -5476,6 +5437,9 @@
             "format": "binary",
             "nullable": true
           },
+          "email": {
+            "type": "string"
+          },
           "defaultAvatar": {
             "nullable": true,
             "oneOf": [
@@ -5484,10 +5448,67 @@
               }
             ]
           },
+          "phoneNumber": {
+            "type": "string"
+          },
           "roleId": {
+            "type": "string"
+          },
+          "nationalId": {
             "type": "string"
           }
         }
+      },
+      "UploadedFile": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "filePath": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "originalFileName": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "fileSize": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "BaseEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "domainEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseEvent"
+            }
+          }
+        }
+      },
+      "BaseEvent": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
       },
       "LoginRequest2": {
         "type": "object",

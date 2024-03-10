@@ -794,7 +794,7 @@ export class BrokersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    getApiBrokersTest(accept_Language: AcceptLanguage16 | undefined): Promise<UploadedFile> {
+    getApiBrokersTest(accept_Language: AcceptLanguage16 | undefined): Promise<string> {
         let url_ = this.baseUrl + "/api/Brokers/Test";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -811,7 +811,7 @@ export class BrokersClient {
         });
     }
 
-    protected processGetApiBrokersTest(response: Response): Promise<UploadedFile> {
+    protected processGetApiBrokersTest(response: Response): Promise<string> {
         followIfLoginRedirect(response);
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
@@ -819,7 +819,8 @@ export class BrokersClient {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UploadedFile.fromJS(resultData200);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -827,7 +828,7 @@ export class BrokersClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<UploadedFile>(null as any);
+        return Promise.resolve<string>(null as any);
     }
 }
 
@@ -4566,6 +4567,9 @@ export interface IBrokerDto {
 export class UserDetailsResponse implements IUserDetailsResponse {
     id?: string;
     userName?: string;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    nationalId?: string | undefined;
     email?: string | undefined;
     phoneNumber?: string | undefined;
     profilePicture?: string;
@@ -4583,6 +4587,9 @@ export class UserDetailsResponse implements IUserDetailsResponse {
         if (_data) {
             this.id = _data["id"];
             this.userName = _data["userName"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.nationalId = _data["nationalId"];
             this.email = _data["email"];
             this.phoneNumber = _data["phoneNumber"];
             this.profilePicture = _data["profilePicture"];
@@ -4600,6 +4607,9 @@ export class UserDetailsResponse implements IUserDetailsResponse {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["userName"] = this.userName;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["nationalId"] = this.nationalId;
         data["email"] = this.email;
         data["phoneNumber"] = this.phoneNumber;
         data["profilePicture"] = this.profilePicture;
@@ -4610,6 +4620,9 @@ export class UserDetailsResponse implements IUserDetailsResponse {
 export interface IUserDetailsResponse {
     id?: string;
     userName?: string;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    nationalId?: string | undefined;
     email?: string | undefined;
     phoneNumber?: string | undefined;
     profilePicture?: string;
@@ -4737,129 +4750,6 @@ export interface IEditBrokerCommand {
     phoneNumber?: string | undefined;
     nationalId?: string | undefined;
     profilePicture?: string | undefined;
-}
-
-export abstract class BaseEntity implements IBaseEntity {
-    id?: string;
-    domainEvents?: BaseEvent[];
-
-    constructor(data?: IBaseEntity) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            if (Array.isArray(_data["domainEvents"])) {
-                this.domainEvents = [] as any;
-                for (let item of _data["domainEvents"])
-                    this.domainEvents!.push(BaseEvent.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): BaseEntity {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'BaseEntity' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        if (Array.isArray(this.domainEvents)) {
-            data["domainEvents"] = [];
-            for (let item of this.domainEvents)
-                data["domainEvents"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IBaseEntity {
-    id?: string;
-    domainEvents?: BaseEvent[];
-}
-
-export class UploadedFile extends BaseEntity implements IUploadedFile {
-    filePath?: string;
-    fileName?: string;
-    originalFileName?: string;
-    contentType?: string;
-    fileSize?: number;
-
-    constructor(data?: IUploadedFile) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.filePath = _data["filePath"];
-            this.fileName = _data["fileName"];
-            this.originalFileName = _data["originalFileName"];
-            this.contentType = _data["contentType"];
-            this.fileSize = _data["fileSize"];
-        }
-    }
-
-    static override fromJS(data: any): UploadedFile {
-        data = typeof data === 'object' ? data : {};
-        let result = new UploadedFile();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["filePath"] = this.filePath;
-        data["fileName"] = this.fileName;
-        data["originalFileName"] = this.originalFileName;
-        data["contentType"] = this.contentType;
-        data["fileSize"] = this.fileSize;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IUploadedFile extends IBaseEntity {
-    filePath?: string;
-    fileName?: string;
-    originalFileName?: string;
-    contentType?: string;
-    fileSize?: number;
-}
-
-export abstract class BaseEvent implements IBaseEvent {
-
-    constructor(data?: IBaseEvent) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): BaseEvent {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'BaseEvent' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data;
-    }
-}
-
-export interface IBaseEvent {
 }
 
 export class CarVm implements ICarVm {
@@ -6552,8 +6442,11 @@ export class CreateUserCommand implements ICreateUserCommand {
     firstName?: string | undefined;
     lastName?: string | undefined;
     personalPhoto?: string | undefined;
+    email?: string;
     defaultAvatar?: UploadedFile | undefined;
+    phoneNumber?: string;
     roleId?: string;
+    nationalId?: string;
 
     constructor(data?: ICreateUserCommand) {
         if (data) {
@@ -6571,8 +6464,11 @@ export class CreateUserCommand implements ICreateUserCommand {
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.personalPhoto = _data["personalPhoto"];
+            this.email = _data["email"];
             this.defaultAvatar = _data["defaultAvatar"] ? UploadedFile.fromJS(_data["defaultAvatar"]) : <any>undefined;
+            this.phoneNumber = _data["phoneNumber"];
             this.roleId = _data["roleId"];
+            this.nationalId = _data["nationalId"];
         }
     }
 
@@ -6590,8 +6486,11 @@ export class CreateUserCommand implements ICreateUserCommand {
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["personalPhoto"] = this.personalPhoto;
+        data["email"] = this.email;
         data["defaultAvatar"] = this.defaultAvatar ? this.defaultAvatar.toJSON() : <any>undefined;
+        data["phoneNumber"] = this.phoneNumber;
         data["roleId"] = this.roleId;
+        data["nationalId"] = this.nationalId;
         return data;
     }
 }
@@ -6602,8 +6501,134 @@ export interface ICreateUserCommand {
     firstName?: string | undefined;
     lastName?: string | undefined;
     personalPhoto?: string | undefined;
+    email?: string;
     defaultAvatar?: UploadedFile | undefined;
+    phoneNumber?: string;
     roleId?: string;
+    nationalId?: string;
+}
+
+export abstract class BaseEntity implements IBaseEntity {
+    id?: string;
+    domainEvents?: BaseEvent[];
+
+    constructor(data?: IBaseEntity) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            if (Array.isArray(_data["domainEvents"])) {
+                this.domainEvents = [] as any;
+                for (let item of _data["domainEvents"])
+                    this.domainEvents!.push(BaseEvent.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): BaseEntity {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'BaseEntity' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        if (Array.isArray(this.domainEvents)) {
+            data["domainEvents"] = [];
+            for (let item of this.domainEvents)
+                data["domainEvents"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IBaseEntity {
+    id?: string;
+    domainEvents?: BaseEvent[];
+}
+
+export class UploadedFile extends BaseEntity implements IUploadedFile {
+    filePath?: string;
+    fileName?: string;
+    originalFileName?: string;
+    contentType?: string;
+    fileSize?: number;
+
+    constructor(data?: IUploadedFile) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.filePath = _data["filePath"];
+            this.fileName = _data["fileName"];
+            this.originalFileName = _data["originalFileName"];
+            this.contentType = _data["contentType"];
+            this.fileSize = _data["fileSize"];
+        }
+    }
+
+    static override fromJS(data: any): UploadedFile {
+        data = typeof data === 'object' ? data : {};
+        let result = new UploadedFile();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filePath"] = this.filePath;
+        data["fileName"] = this.fileName;
+        data["originalFileName"] = this.originalFileName;
+        data["contentType"] = this.contentType;
+        data["fileSize"] = this.fileSize;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IUploadedFile extends IBaseEntity {
+    filePath?: string;
+    fileName?: string;
+    originalFileName?: string;
+    contentType?: string;
+    fileSize?: number;
+}
+
+export abstract class BaseEvent implements IBaseEvent {
+
+    constructor(data?: IBaseEvent) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): BaseEvent {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'BaseEvent' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data;
+    }
+}
+
+export interface IBaseEvent {
 }
 
 export class LoginRequest2 implements ILoginRequest2 {

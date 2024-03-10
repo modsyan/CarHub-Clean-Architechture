@@ -10,4 +10,5 @@ public interface IAvatarGeneratorService
     Task<UploadedFile> GetUserAvatar();
     Task<UploadedFile?> AvatarsWithInitialsFromNames(string firstName, string lastName);
     Task<UploadedFile?> GetRandomAvatar();
+    Task<UploadedFile?> GetRandomAvatarMenOnly();
 }

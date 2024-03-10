@@ -6,6 +6,7 @@ using Azure;
 using Mac.CarHub.Application.Common.Extension;
 using Mac.CarHub.Application.Common.Interfaces;
 using Mac.CarHub.Infrastructure.Data;
+// using Mac.CarHub.Infrastructure.Tunnel;
 using Mac.CarHub.Web;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,9 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// if (builder.Environment.IsDevelopment())
+    // builder.Services.AddHostedService<TunnelService>();
 
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();

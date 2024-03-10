@@ -32,6 +32,11 @@ void main() {
       // TODO
     });
 
+    //Future<String> getApiBrokersTest({ List<String> acceptLanguage }) async
+    test('test getApiBrokersTest', () async {
+      // TODO
+    });
+
     //Future<BrokerDto> getBroker(String id, { List<String> acceptLanguage }) async
     test('test getBroker', () async {
       // TODO

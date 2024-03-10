@@ -10,6 +10,8 @@ public class ApplicationUser : IdentityUser<Guid>
     public string? LastName { get; set; }
 
     // public string UserName { get; set; }
+    
+    public string? NationalId { get; set; }
 
     public Guid ProfilePictureId { get; set; }
     public UploadedFile ProfilePicture { get; set; } = null!;

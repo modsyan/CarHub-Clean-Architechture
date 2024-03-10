@@ -7,6 +7,7 @@ doc/AccessTokenResponse.md
 doc/ApplicationUserDto.md
 doc/AuthenticationApi.md
 doc/AuthenticationDevApi.md
+doc/BaseEntity.md
 doc/BrokerDto.md
 doc/BrokerDtoUserDetails.md
 doc/BrokerVm.md
@@ -18,6 +19,7 @@ doc/CarsApi.md
 doc/ColorDto.md
 doc/ColorVm.md
 doc/CreateUserCommand.md
+doc/CreateUserCommandDefaultAvatar.md
 doc/DocumentBriefDto.md
 doc/DocumentDto.md
 doc/DocumentDtoFile.md
@@ -69,6 +71,7 @@ doc/TwoFactorResponse.md
 doc/UpComingEventsApi.md
 doc/UpcomingEventDto.md
 doc/UpcomingEventVm.md
+doc/UploadedFile.md
 doc/UserDetailsResponse.md
 doc/UsersApi.md
 git_push.sh
@@ -97,6 +100,7 @@ lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
 lib/model/access_token_response.dart
 lib/model/application_user_dto.dart
+lib/model/base_entity.dart
 lib/model/broker_dto.dart
 lib/model/broker_dto_user_details.dart
 lib/model/broker_vm.dart
@@ -106,6 +110,7 @@ lib/model/car_vm.dart
 lib/model/color_dto.dart
 lib/model/color_vm.dart
 lib/model/create_user_command.dart
+lib/model/create_user_command_default_avatar.dart
 lib/model/document_brief_dto.dart
 lib/model/document_dto.dart
 lib/model/document_dto_file.dart
@@ -148,12 +153,14 @@ lib/model/two_factor_request.dart
 lib/model/two_factor_response.dart
 lib/model/upcoming_event_dto.dart
 lib/model/upcoming_event_vm.dart
+lib/model/uploaded_file.dart
 lib/model/user_details_response.dart
 pubspec.yaml
 test/access_token_response_test.dart
 test/application_user_dto_test.dart
 test/authentication_api_test.dart
 test/authentication_dev_api_test.dart
+test/base_entity_test.dart
 test/broker_dto_test.dart
 test/broker_dto_user_details_test.dart
 test/broker_vm_test.dart
@@ -164,6 +171,7 @@ test/car_vm_test.dart
 test/cars_api_test.dart
 test/color_dto_test.dart
 test/color_vm_test.dart
+test/create_user_command_default_avatar_test.dart
 test/create_user_command_test.dart
 test/document_brief_dto_test.dart
 test/document_dto_file_test.dart
@@ -216,5 +224,6 @@ test/two_factor_response_test.dart
 test/up_coming_events_api_test.dart
 test/upcoming_event_dto_test.dart
 test/upcoming_event_vm_test.dart
+test/uploaded_file_test.dart
 test/user_details_response_test.dart
 test/users_api_test.dart

@@ -130,6 +130,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\" />
+    <Folder Include="ClientApp\flutter\v2\" />
     <Folder Include="wwwroot\api\" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-# openapi.model.BrokerDtoUserDetails
+# openapi.model.UserDetailsResponse
 
 ## Load the model package
 ```dart
@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
 **userName** | **String** |  | [optional] 
+**firstName** | **String** |  | [optional] 
+**lastName** | **String** |  | [optional] 
+**nationalId** | **String** |  | [optional] 
 **email** | **String** |  | [optional] 
 **phoneNumber** | **String** |  | [optional] 
 **profilePicture** | **String** |  | [optional] 

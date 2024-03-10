@@ -15,6 +15,9 @@ class BrokerDtoUserDetails {
   BrokerDtoUserDetails({
     this.id,
     this.userName,
+    this.firstName,
+    this.lastName,
+    this.nationalId,
     this.email,
     this.phoneNumber,
     this.profilePicture,
@@ -36,6 +39,12 @@ class BrokerDtoUserDetails {
   ///
   String? userName;
 
+  String? firstName;
+
+  String? lastName;
+
+  String? nationalId;
+
   String? email;
 
   String? phoneNumber;
@@ -52,6 +61,9 @@ class BrokerDtoUserDetails {
   bool operator ==(Object other) => identical(this, other) || other is BrokerDtoUserDetails &&
     other.id == id &&
     other.userName == userName &&
+    other.firstName == firstName &&
+    other.lastName == lastName &&
+    other.nationalId == nationalId &&
     other.email == email &&
     other.phoneNumber == phoneNumber &&
     other.profilePicture == profilePicture;
@@ -61,12 +73,15 @@ class BrokerDtoUserDetails {
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
     (userName == null ? 0 : userName!.hashCode) +
+    (firstName == null ? 0 : firstName!.hashCode) +
+    (lastName == null ? 0 : lastName!.hashCode) +
+    (nationalId == null ? 0 : nationalId!.hashCode) +
     (email == null ? 0 : email!.hashCode) +
     (phoneNumber == null ? 0 : phoneNumber!.hashCode) +
     (profilePicture == null ? 0 : profilePicture!.hashCode);
 
   @override
-  String toString() => 'BrokerDtoUserDetails[id=$id, userName=$userName, email=$email, phoneNumber=$phoneNumber, profilePicture=$profilePicture]';
+  String toString() => 'BrokerDtoUserDetails[id=$id, userName=$userName, firstName=$firstName, lastName=$lastName, nationalId=$nationalId, email=$email, phoneNumber=$phoneNumber, profilePicture=$profilePicture]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -79,6 +94,21 @@ class BrokerDtoUserDetails {
       json[r'userName'] = this.userName;
     } else {
       json[r'userName'] = null;
+    }
+    if (this.firstName != null) {
+      json[r'firstName'] = this.firstName;
+    } else {
+      json[r'firstName'] = null;
+    }
+    if (this.lastName != null) {
+      json[r'lastName'] = this.lastName;
+    } else {
+      json[r'lastName'] = null;
+    }
+    if (this.nationalId != null) {
+      json[r'nationalId'] = this.nationalId;
+    } else {
+      json[r'nationalId'] = null;
     }
     if (this.email != null) {
       json[r'email'] = this.email;
@@ -119,6 +149,9 @@ class BrokerDtoUserDetails {
       return BrokerDtoUserDetails(
         id: mapValueOfType<String>(json, r'id'),
         userName: mapValueOfType<String>(json, r'userName'),
+        firstName: mapValueOfType<String>(json, r'firstName'),
+        lastName: mapValueOfType<String>(json, r'lastName'),
+        nationalId: mapValueOfType<String>(json, r'nationalId'),
         email: mapValueOfType<String>(json, r'email'),
         phoneNumber: mapValueOfType<String>(json, r'phoneNumber'),
         profilePicture: mapValueOfType<String>(json, r'profilePicture'),

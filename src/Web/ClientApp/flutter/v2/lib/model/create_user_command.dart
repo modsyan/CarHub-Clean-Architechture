@@ -18,7 +18,11 @@ class CreateUserCommand {
     this.firstName,
     this.lastName,
     this.personalPhoto,
+    this.email,
+    this.defaultAvatar,
+    this.phoneNumber,
     this.roleId,
+    this.nationalId,
   });
 
   ///
@@ -49,7 +53,33 @@ class CreateUserCommand {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
+  String? email;
+
+  CreateUserCommandDefaultAvatar? defaultAvatar;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? phoneNumber;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
   String? roleId;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? nationalId;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is CreateUserCommand &&
@@ -58,7 +88,11 @@ class CreateUserCommand {
     other.firstName == firstName &&
     other.lastName == lastName &&
     other.personalPhoto == personalPhoto &&
-    other.roleId == roleId;
+    other.email == email &&
+    other.defaultAvatar == defaultAvatar &&
+    other.phoneNumber == phoneNumber &&
+    other.roleId == roleId &&
+    other.nationalId == nationalId;
 
   @override
   int get hashCode =>
@@ -68,10 +102,14 @@ class CreateUserCommand {
     (firstName == null ? 0 : firstName!.hashCode) +
     (lastName == null ? 0 : lastName!.hashCode) +
     (personalPhoto == null ? 0 : personalPhoto!.hashCode) +
-    (roleId == null ? 0 : roleId!.hashCode);
+    (email == null ? 0 : email!.hashCode) +
+    (defaultAvatar == null ? 0 : defaultAvatar!.hashCode) +
+    (phoneNumber == null ? 0 : phoneNumber!.hashCode) +
+    (roleId == null ? 0 : roleId!.hashCode) +
+    (nationalId == null ? 0 : nationalId!.hashCode);
 
   @override
-  String toString() => 'CreateUserCommand[userName=$userName, password=$password, firstName=$firstName, lastName=$lastName, personalPhoto=$personalPhoto, roleId=$roleId]';
+  String toString() => 'CreateUserCommand[userName=$userName, password=$password, firstName=$firstName, lastName=$lastName, personalPhoto=$personalPhoto, email=$email, defaultAvatar=$defaultAvatar, phoneNumber=$phoneNumber, roleId=$roleId, nationalId=$nationalId]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -100,10 +138,30 @@ class CreateUserCommand {
     } else {
       json[r'personalPhoto'] = null;
     }
+    if (this.email != null) {
+      json[r'email'] = this.email;
+    } else {
+      json[r'email'] = null;
+    }
+    if (this.defaultAvatar != null) {
+      json[r'defaultAvatar'] = this.defaultAvatar;
+    } else {
+      json[r'defaultAvatar'] = null;
+    }
+    if (this.phoneNumber != null) {
+      json[r'phoneNumber'] = this.phoneNumber;
+    } else {
+      json[r'phoneNumber'] = null;
+    }
     if (this.roleId != null) {
       json[r'roleId'] = this.roleId;
     } else {
       json[r'roleId'] = null;
+    }
+    if (this.nationalId != null) {
+      json[r'nationalId'] = this.nationalId;
+    } else {
+      json[r'nationalId'] = null;
     }
     return json;
   }
@@ -132,7 +190,11 @@ class CreateUserCommand {
         firstName: mapValueOfType<String>(json, r'firstName'),
         lastName: mapValueOfType<String>(json, r'lastName'),
         personalPhoto: null, // No support for decoding binary content from JSON
+        email: mapValueOfType<String>(json, r'email'),
+        defaultAvatar: CreateUserCommandDefaultAvatar.fromJson(json[r'defaultAvatar']),
+        phoneNumber: mapValueOfType<String>(json, r'phoneNumber'),
         roleId: mapValueOfType<String>(json, r'roleId'),
+        nationalId: mapValueOfType<String>(json, r'nationalId'),
       );
     }
     return null;

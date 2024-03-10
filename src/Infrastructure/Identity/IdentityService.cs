@@ -52,7 +52,12 @@ public class IdentityService(
     {
         var user = new ApplicationUser
         {
-            UserName = cmd.UserName, Email = cmd.UserName, FirstName = cmd.FirstName, LastName = cmd.LastName
+            UserName = cmd.UserName,
+            Email = cmd.Email,
+            FirstName = cmd.FirstName,
+            LastName = cmd.LastName,
+            PhoneNumber = cmd.PhoneNumber,
+            NationalId = cmd.NationalId ?? string.Empty,
         };
 
         if (cmd.PersonalPhoto is not null)
@@ -88,7 +93,19 @@ public class IdentityService(
         }
 
         if (cmd.Username != null) user.UserName = cmd.Username;
+
+        if (!string.IsNullOrWhiteSpace(cmd.FistName))
+            user.FirstName = cmd.FistName;
+
+        if (!string.IsNullOrWhiteSpace(cmd.LastName))
+            user.LastName = cmd.LastName;
+
+        user.LastName = string.IsNullOrWhiteSpace(cmd.LastName) ? null : cmd.LastName;
+
         if (cmd.Email != null) user.Email = cmd.Email;
+
+        if (cmd.NationalId != null) user.NationalId = cmd.NationalId;
+
         if (cmd.PhoneNumber != null) user.PhoneNumber = cmd.PhoneNumber;
 
         if (cmd.ProfilePicture is not null)
@@ -267,7 +284,13 @@ public class IdentityService(
 
         var userResponse = new UserDetailsResponse
         {
-            Id = user.Id, UserName = user.UserName ?? "", Email = user.Email, PhoneNumber = user.PhoneNumber,
+            Id = user.Id,
+            UserName = user.UserName ?? "",
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            NationalId = user.NationalId,
         };
 
         if (user.ProfilePicture is not null)

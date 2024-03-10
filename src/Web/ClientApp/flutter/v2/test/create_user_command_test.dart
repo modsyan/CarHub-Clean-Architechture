@@ -41,8 +41,28 @@ void main() {
       // TODO
     });
 
+    // String email
+    test('to test the property `email`', () async {
+      // TODO
+    });
+
+    // CreateUserCommandDefaultAvatar defaultAvatar
+    test('to test the property `defaultAvatar`', () async {
+      // TODO
+    });
+
+    // String phoneNumber
+    test('to test the property `phoneNumber`', () async {
+      // TODO
+    });
+
     // String roleId
     test('to test the property `roleId`', () async {
+      // TODO
+    });
+
+    // String nationalId
+    test('to test the property `nationalId`', () async {
       // TODO
     });
 

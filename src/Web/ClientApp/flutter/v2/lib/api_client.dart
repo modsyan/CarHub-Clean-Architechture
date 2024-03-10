@@ -186,6 +186,8 @@ class ApiClient {
           return AccessTokenResponse.fromJson(value);
         case 'ApplicationUserDto':
           return ApplicationUserDto.fromJson(value);
+        case 'BaseEntity':
+          return BaseEntity.fromJson(value);
         case 'BrokerDto':
           return BrokerDto.fromJson(value);
         case 'BrokerDtoUserDetails':
@@ -204,6 +206,8 @@ class ApiClient {
           return ColorVm.fromJson(value);
         case 'CreateUserCommand':
           return CreateUserCommand.fromJson(value);
+        case 'CreateUserCommandDefaultAvatar':
+          return CreateUserCommandDefaultAvatar.fromJson(value);
         case 'DocumentBriefDto':
           return DocumentBriefDto.fromJson(value);
         case 'DocumentDto':
@@ -288,6 +292,8 @@ class ApiClient {
           return UpcomingEventDto.fromJson(value);
         case 'UpcomingEventVm':
           return UpcomingEventVm.fromJson(value);
+        case 'UploadedFile':
+          return UploadedFile.fromJson(value);
         case 'UserDetailsResponse':
           return UserDetailsResponse.fromJson(value);
         default:

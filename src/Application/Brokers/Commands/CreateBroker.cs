@@ -43,13 +43,14 @@ public class CreateBrokerCommandValidator : AbstractValidator<CreateBrokerComman
         RuleFor(v => v.Name)
             .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED])
             .NotNull().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED])
+            .MinimumLength(5).WithMessage(_localizer[SharedResourcesKeys.ERR_MIN_LENGTH, 5])
             // .MaximumLength(200).WithMessage(_localizer[SharedResourcesKeys.ERR_REGEX_COMMON_INPUT_MAX_LENGTH, 200])
             ;
 
         RuleFor(v => v.Username)
             .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED])
             .NotNull().WithMessage(_localizer[SharedResourcesKeys.ERR_REQUIRED])
-            .MinimumLength(7).WithMessage(_localizer[SharedResourcesKeys.MESSAGE_VALIDATION_USERNAME_LENGTH])
+            .MinimumLength(5).WithMessage(_localizer[SharedResourcesKeys.MESSAGE_VALIDATION_USERNAME_LENGTH])
             .MaximumLength(15).WithMessage(_localizer[SharedResourcesKeys.MESSAGE_VALIDATION_USERNAME_LENGTH])
             .MustAsync(BeUniqueUsername)
             .WithMessage(_localizer[SharedResourcesKeys.MESSAGE_VALIDATION_DUPLICATED_USERNAME]);
@@ -131,7 +132,14 @@ public class CreateBrokerCommandHandler : IRequestHandler<CreateBrokerCommand, B
 
     private async Task<CreateUserCommand> CreateUserCommand(CreateBrokerCommand request)
     {
-        var user = new CreateUserCommand(request.Username, $"@Mac2024_{request.Username}", request.Name, Roles.Broker);
+        var user = new CreateUserCommand(
+            request.Username,
+            (string)$"@Mac2024_{request.Username}",
+            request.Name,
+            request.Email,
+            request.PhoneNumber, 
+            request.NationalId,
+            Roles.Broker);
 
         user = request.ProfilePicture is not null
             ? user.WithPersonalPhoto(request.ProfilePicture)
