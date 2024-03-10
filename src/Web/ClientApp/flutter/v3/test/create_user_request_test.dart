@@ -11,11 +11,11 @@
 import 'package:openapi/api.dart';
 import 'package:test/test.dart';
 
-// tests for CreateUserCommand
+// tests for CreateUserRequest
 void main() {
-  // final instance = CreateUserCommand();
+  // final instance = CreateUserRequest();
 
-  group('test CreateUserCommand', () {
+  group('test CreateUserRequest', () {
     // String userName
     test('to test the property `userName`', () async {
       // TODO
@@ -36,18 +36,8 @@ void main() {
       // TODO
     });
 
-    // MultipartFile personalPhoto
-    test('to test the property `personalPhoto`', () async {
-      // TODO
-    });
-
     // String email
     test('to test the property `email`', () async {
-      // TODO
-    });
-
-    // CreateUserCommandDefaultAvatar defaultAvatar
-    test('to test the property `defaultAvatar`', () async {
       // TODO
     });
 
@@ -56,13 +46,8 @@ void main() {
       // TODO
     });
 
-    // String roleId
-    test('to test the property `roleId`', () async {
-      // TODO
-    });
-
-    // String nationalId
-    test('to test the property `nationalId`', () async {
+    // MultipartFile personalPhoto
+    test('to test the property `personalPhoto`', () async {
       // TODO
     });
 

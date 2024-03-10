@@ -45,7 +45,6 @@ part 'api/users_api.dart';
 
 part 'model/access_token_response.dart';
 part 'model/application_user_dto.dart';
-part 'model/base_entity.dart';
 part 'model/broker_dto.dart';
 part 'model/broker_dto_user_details.dart';
 part 'model/broker_vm.dart';
@@ -54,8 +53,7 @@ part 'model/car_dto.dart';
 part 'model/car_vm.dart';
 part 'model/color_dto.dart';
 part 'model/color_vm.dart';
-part 'model/create_user_command.dart';
-part 'model/create_user_command_default_avatar.dart';
+part 'model/create_user_request.dart';
 part 'model/document_brief_dto.dart';
 part 'model/document_dto.dart';
 part 'model/document_dto_file.dart';
@@ -98,7 +96,6 @@ part 'model/two_factor_request.dart';
 part 'model/two_factor_response.dart';
 part 'model/upcoming_event_dto.dart';
 part 'model/upcoming_event_vm.dart';
-part 'model/uploaded_file.dart';
 part 'model/user_details_response.dart';
 
 

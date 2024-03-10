@@ -146,7 +146,6 @@ Class | Method | HTTP request | Description
 
  - [AccessTokenResponse](doc//AccessTokenResponse.md)
  - [ApplicationUserDto](doc//ApplicationUserDto.md)
- - [BaseEntity](doc//BaseEntity.md)
  - [BrokerDto](doc//BrokerDto.md)
  - [BrokerDtoUserDetails](doc//BrokerDtoUserDetails.md)
  - [BrokerVm](doc//BrokerVm.md)
@@ -155,8 +154,7 @@ Class | Method | HTTP request | Description
  - [CarVm](doc//CarVm.md)
  - [ColorDto](doc//ColorDto.md)
  - [ColorVm](doc//ColorVm.md)
- - [CreateUserCommand](doc//CreateUserCommand.md)
- - [CreateUserCommandDefaultAvatar](doc//CreateUserCommandDefaultAvatar.md)
+ - [CreateUserRequest](doc//CreateUserRequest.md)
  - [DocumentBriefDto](doc//DocumentBriefDto.md)
  - [DocumentDto](doc//DocumentDto.md)
  - [DocumentDtoFile](doc//DocumentDtoFile.md)
@@ -199,7 +197,6 @@ Class | Method | HTTP request | Description
  - [TwoFactorResponse](doc//TwoFactorResponse.md)
  - [UpcomingEventDto](doc//UpcomingEventDto.md)
  - [UpcomingEventVm](doc//UpcomingEventVm.md)
- - [UploadedFile](doc//UploadedFile.md)
  - [UserDetailsResponse](doc//UserDetailsResponse.md)
 
 

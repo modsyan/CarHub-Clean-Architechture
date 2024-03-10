@@ -10,19 +10,16 @@
 
 part of openapi.api;
 
-class CreateUserCommand {
-  /// Returns a new [CreateUserCommand] instance.
-  CreateUserCommand({
+class CreateUserRequest {
+  /// Returns a new [CreateUserRequest] instance.
+  CreateUserRequest({
     this.userName,
     this.password,
     this.firstName,
     this.lastName,
-    this.personalPhoto,
     this.email,
-    this.defaultAvatar,
     this.phoneNumber,
-    this.roleId,
-    this.nationalId,
+    this.personalPhoto,
   });
 
   ///
@@ -41,11 +38,15 @@ class CreateUserCommand {
   ///
   String? password;
 
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
   String? firstName;
 
   String? lastName;
-
-  MultipartFile? personalPhoto;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,8 +56,6 @@ class CreateUserCommand {
   ///
   String? email;
 
-  CreateUserCommandDefaultAvatar? defaultAvatar;
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -65,34 +64,17 @@ class CreateUserCommand {
   ///
   String? phoneNumber;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? roleId;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? nationalId;
+  MultipartFile? personalPhoto;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is CreateUserCommand &&
+  bool operator ==(Object other) => identical(this, other) || other is CreateUserRequest &&
     other.userName == userName &&
     other.password == password &&
     other.firstName == firstName &&
     other.lastName == lastName &&
-    other.personalPhoto == personalPhoto &&
     other.email == email &&
-    other.defaultAvatar == defaultAvatar &&
     other.phoneNumber == phoneNumber &&
-    other.roleId == roleId &&
-    other.nationalId == nationalId;
+    other.personalPhoto == personalPhoto;
 
   @override
   int get hashCode =>
@@ -101,15 +83,12 @@ class CreateUserCommand {
     (password == null ? 0 : password!.hashCode) +
     (firstName == null ? 0 : firstName!.hashCode) +
     (lastName == null ? 0 : lastName!.hashCode) +
-    (personalPhoto == null ? 0 : personalPhoto!.hashCode) +
     (email == null ? 0 : email!.hashCode) +
-    (defaultAvatar == null ? 0 : defaultAvatar!.hashCode) +
     (phoneNumber == null ? 0 : phoneNumber!.hashCode) +
-    (roleId == null ? 0 : roleId!.hashCode) +
-    (nationalId == null ? 0 : nationalId!.hashCode);
+    (personalPhoto == null ? 0 : personalPhoto!.hashCode);
 
   @override
-  String toString() => 'CreateUserCommand[userName=$userName, password=$password, firstName=$firstName, lastName=$lastName, personalPhoto=$personalPhoto, email=$email, defaultAvatar=$defaultAvatar, phoneNumber=$phoneNumber, roleId=$roleId, nationalId=$nationalId]';
+  String toString() => 'CreateUserRequest[userName=$userName, password=$password, firstName=$firstName, lastName=$lastName, email=$email, phoneNumber=$phoneNumber, personalPhoto=$personalPhoto]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -133,43 +112,28 @@ class CreateUserCommand {
     } else {
       json[r'lastName'] = null;
     }
-    if (this.personalPhoto != null) {
-      json[r'personalPhoto'] = this.personalPhoto;
-    } else {
-      json[r'personalPhoto'] = null;
-    }
     if (this.email != null) {
       json[r'email'] = this.email;
     } else {
       json[r'email'] = null;
-    }
-    if (this.defaultAvatar != null) {
-      json[r'defaultAvatar'] = this.defaultAvatar;
-    } else {
-      json[r'defaultAvatar'] = null;
     }
     if (this.phoneNumber != null) {
       json[r'phoneNumber'] = this.phoneNumber;
     } else {
       json[r'phoneNumber'] = null;
     }
-    if (this.roleId != null) {
-      json[r'roleId'] = this.roleId;
+    if (this.personalPhoto != null) {
+      json[r'personalPhoto'] = this.personalPhoto;
     } else {
-      json[r'roleId'] = null;
-    }
-    if (this.nationalId != null) {
-      json[r'nationalId'] = this.nationalId;
-    } else {
-      json[r'nationalId'] = null;
+      json[r'personalPhoto'] = null;
     }
     return json;
   }
 
-  /// Returns a new [CreateUserCommand] instance and imports its values from
+  /// Returns a new [CreateUserRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static CreateUserCommand? fromJson(dynamic value) {
+  static CreateUserRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -178,33 +142,30 @@ class CreateUserCommand {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "CreateUserCommand[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "CreateUserCommand[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "CreateUserRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "CreateUserRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return CreateUserCommand(
+      return CreateUserRequest(
         userName: mapValueOfType<String>(json, r'userName'),
         password: mapValueOfType<String>(json, r'password'),
         firstName: mapValueOfType<String>(json, r'firstName'),
         lastName: mapValueOfType<String>(json, r'lastName'),
-        personalPhoto: null, // No support for decoding binary content from JSON
         email: mapValueOfType<String>(json, r'email'),
-        defaultAvatar: CreateUserCommandDefaultAvatar.fromJson(json[r'defaultAvatar']),
         phoneNumber: mapValueOfType<String>(json, r'phoneNumber'),
-        roleId: mapValueOfType<String>(json, r'roleId'),
-        nationalId: mapValueOfType<String>(json, r'nationalId'),
+        personalPhoto: null, // No support for decoding binary content from JSON
       );
     }
     return null;
   }
 
-  static List<CreateUserCommand> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <CreateUserCommand>[];
+  static List<CreateUserRequest> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <CreateUserRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = CreateUserCommand.fromJson(row);
+        final value = CreateUserRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -213,12 +174,12 @@ class CreateUserCommand {
     return result.toList(growable: growable);
   }
 
-  static Map<String, CreateUserCommand> mapFromJson(dynamic json) {
-    final map = <String, CreateUserCommand>{};
+  static Map<String, CreateUserRequest> mapFromJson(dynamic json) {
+    final map = <String, CreateUserRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = CreateUserCommand.fromJson(entry.value);
+        final value = CreateUserRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -227,14 +188,14 @@ class CreateUserCommand {
     return map;
   }
 
-  // maps a json object with a list of CreateUserCommand-objects as value to a dart map
-  static Map<String, List<CreateUserCommand>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<CreateUserCommand>>{};
+  // maps a json object with a list of CreateUserRequest-objects as value to a dart map
+  static Map<String, List<CreateUserRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<CreateUserRequest>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = CreateUserCommand.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = CreateUserRequest.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **createUser**
-> String createUser(createUserCommand, acceptLanguage)
+> String createUser(createUserRequest, acceptLanguage)
 
 
 
@@ -32,11 +32,11 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('XApiKey').apiKeyPrefix = 'Bearer';
 
 final api_instance = UsersApi();
-final createUserCommand = CreateUserCommand(); // CreateUserCommand | 
+final createUserRequest = CreateUserRequest(); // CreateUserRequest | 
 final acceptLanguage = []; // List<String> | Language preference for the response.
 
 try {
-    final result = api_instance.createUser(createUserCommand, acceptLanguage);
+    final result = api_instance.createUser(createUserRequest, acceptLanguage);
     print(result);
 } catch (e) {
     print('Exception when calling UsersApi->createUser: $e\n');
@@ -47,7 +47,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createUserCommand** | [**CreateUserCommand**](CreateUserCommand.md)|  | 
+ **createUserRequest** | [**CreateUserRequest**](CreateUserRequest.md)|  | 
  **acceptLanguage** | [**List<String>**](String.md)| Language preference for the response. | [optional] [default to const []]
 
 ### Return type

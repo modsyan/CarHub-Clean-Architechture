@@ -17,7 +17,7 @@ void main() {
   // final instance = UsersApi();
 
   group('tests for UsersApi', () {
-    //Future<String> createUser(CreateUserCommand createUserCommand, { List<String> acceptLanguage }) async
+    //Future<String> createUser(CreateUserRequest createUserRequest, { List<String> acceptLanguage }) async
     test('test createUser', () async {
       // TODO
     });

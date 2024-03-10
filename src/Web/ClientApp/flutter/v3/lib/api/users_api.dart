@@ -19,16 +19,16 @@ class UsersApi {
   /// Performs an HTTP 'POST /api/Users' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [CreateUserCommand] createUserCommand (required):
+  /// * [CreateUserRequest] createUserRequest (required):
   ///
   /// * [List<String>] acceptLanguage:
   ///   Language preference for the response.
-  Future<Response> createUserWithHttpInfo(CreateUserCommand createUserCommand, { List<String>? acceptLanguage, }) async {
+  Future<Response> createUserWithHttpInfo(CreateUserRequest createUserRequest, { List<String>? acceptLanguage, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/Users';
 
     // ignore: prefer_final_locals
-    Object? postBody = createUserCommand;
+    Object? postBody = createUserRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -54,12 +54,12 @@ class UsersApi {
 
   /// Parameters:
   ///
-  /// * [CreateUserCommand] createUserCommand (required):
+  /// * [CreateUserRequest] createUserRequest (required):
   ///
   /// * [List<String>] acceptLanguage:
   ///   Language preference for the response.
-  Future<String?> createUser(CreateUserCommand createUserCommand, { List<String>? acceptLanguage, }) async {
-    final response = await createUserWithHttpInfo(createUserCommand,  acceptLanguage: acceptLanguage, );
+  Future<String?> createUser(CreateUserRequest createUserRequest, { List<String>? acceptLanguage, }) async {
+    final response = await createUserWithHttpInfo(createUserRequest,  acceptLanguage: acceptLanguage, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
