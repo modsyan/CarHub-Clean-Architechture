@@ -1,7 +1,12 @@
 ﻿# Mac.CarHub
 
-The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/Mac.CarHub) version 8.0.0.
+## Project description.
+#### A Full System to Manage Cars with triptick system where we provided 3 applications
 
+Applications:
+- Car Hub (Dashboard) : To manage the overall system.
+- Car Control (Mobile): Data Entry mobile application with staff to register cars and do with it multiple operations using mobile camera.
+- My Garage (Car Owner): Application to Car Owner to track and send requests if needed to company when needed for owned cars.
 ## Build
 
 Run `dotnet build -tl` to build the solution.
