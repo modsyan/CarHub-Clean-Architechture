@@ -13,6 +13,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mac.CarHub.Web.Endpoints;
 
+class CreateUserRequest
+{
+    public string UserName { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
+
+    public string FirstName { get; set; } = null!;
+
+    public string? LastName { get; set; }
+
+    public string Email { get; set; } = null!;
+
+    public string PhoneNumber { get; set; } = null!;
+
+    public IFormFile? PersonalPhoto { get; set; } = null!;
+
+    public CreateUserCommand ToCreateUserCommand()
+    {
+        return new CreateUserCommand(UserName, Password, FirstName, LastName, Email, PhoneNumber,
+            PersonalPhoto);
+    }
+}
+
 public class Users : EndpointGroupBase
 {
     public override void Map(WebApplication app)
@@ -24,10 +47,10 @@ public class Users : EndpointGroupBase
     }
 
     private static async Task<Results<Created<Guid>, BadRequest<string[]>>> CreateUser(
-        ISender sender, IIdentityService identityService, [FromBody] CreateUserCommand cmd)
+        ISender sender, IIdentityService identityService, [FromBody] CreateUserRequest request)
     {
         (Result result, UserDetailsResponse? user) =
-            await identityService.CreateUserAsync(cmd, cancellationToken: CancellationToken.None);
+            await identityService.CreateUserAsync(request.ToCreateUserCommand(), CancellationToken.None);
 
         if (user is null || result.Succeeded == false) return TypedResults.BadRequest(result.Errors);
 

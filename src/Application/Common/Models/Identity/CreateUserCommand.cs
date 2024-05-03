@@ -32,14 +32,16 @@ public class CreateUserCommand
         string firstName,
         string? lastName,
         string email,
-        IFormFile personalPhoto,
-        string roleId)
+        string phoneNumber,
+        IFormFile? personalPhoto,
+        string roleId = Roles.User)
     {
         UserName = userName;
         Password = password;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
+        PhoneNumber = phoneNumber;
         PersonalPhoto = personalPhoto;
         RoleId = roleId;
     }

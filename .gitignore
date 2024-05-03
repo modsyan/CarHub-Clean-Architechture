@@ -480,3 +480,6 @@ $RECYCLE.BIN/
 *.swp
 /src/Web/wwwroot/assets
 /src/Web/ClientApp/dart/
+/src/Web/ClientApp/flutter/
+
+/.idea/

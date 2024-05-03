@@ -3958,11 +3958,11 @@
           }
         ],
         "requestBody": {
-          "x-name": "cmd",
+          "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserCommand"
+                "$ref": "#/components/schemas/CreateUserRequest"
               }
             }
           },
@@ -5414,7 +5414,7 @@
           }
         }
       },
-      "CreateUserCommand": {
+      "CreateUserRequest": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -5425,90 +5425,24 @@
             "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "lastName": {
             "type": "string",
             "nullable": true
           },
-          "personalPhoto": {
-            "type": "string",
-            "format": "binary",
-            "nullable": true
-          },
           "email": {
             "type": "string"
-          },
-          "defaultAvatar": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/UploadedFile"
-              }
-            ]
           },
           "phoneNumber": {
             "type": "string"
           },
-          "roleId": {
-            "type": "string"
-          },
-          "nationalId": {
-            "type": "string"
-          }
-        }
-      },
-      "UploadedFile": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseEntity"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "filePath": {
-                "type": "string"
-              },
-              "fileName": {
-                "type": "string"
-              },
-              "originalFileName": {
-                "type": "string"
-              },
-              "contentType": {
-                "type": "string"
-              },
-              "fileSize": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "BaseEntity": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "id": {
+          "personalPhoto": {
             "type": "string",
-            "format": "guid"
-          },
-          "domainEvents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BaseEvent"
-            }
+            "format": "binary",
+            "nullable": true
           }
         }
-      },
-      "BaseEvent": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false
       },
       "LoginRequest2": {
         "type": "object",

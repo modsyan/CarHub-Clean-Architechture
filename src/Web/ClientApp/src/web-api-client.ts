@@ -3476,11 +3476,11 @@ export class UsersClient {
     /**
      * @param accept_Language (optional) Language preference for the response.
      */
-    createUser(accept_Language: AcceptLanguage65 | undefined, cmd: CreateUserCommand): Promise<string> {
+    createUser(accept_Language: AcceptLanguage65 | undefined, request: CreateUserRequest): Promise<string> {
         let url_ = this.baseUrl + "/api/Users";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(cmd);
+        const content_ = JSON.stringify(request);
 
         let options_: RequestInit = {
             body: content_,
@@ -6436,19 +6436,16 @@ export interface IApplicationUserDto {
     avatarUrl?: string;
 }
 
-export class CreateUserCommand implements ICreateUserCommand {
+export class CreateUserRequest implements ICreateUserRequest {
     userName?: string;
     password?: string;
-    firstName?: string | undefined;
+    firstName?: string;
     lastName?: string | undefined;
-    personalPhoto?: string | undefined;
     email?: string;
-    defaultAvatar?: UploadedFile | undefined;
     phoneNumber?: string;
-    roleId?: string;
-    nationalId?: string;
+    personalPhoto?: string | undefined;
 
-    constructor(data?: ICreateUserCommand) {
+    constructor(data?: ICreateUserRequest) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -6463,18 +6460,15 @@ export class CreateUserCommand implements ICreateUserCommand {
             this.password = _data["password"];
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
-            this.personalPhoto = _data["personalPhoto"];
             this.email = _data["email"];
-            this.defaultAvatar = _data["defaultAvatar"] ? UploadedFile.fromJS(_data["defaultAvatar"]) : <any>undefined;
             this.phoneNumber = _data["phoneNumber"];
-            this.roleId = _data["roleId"];
-            this.nationalId = _data["nationalId"];
+            this.personalPhoto = _data["personalPhoto"];
         }
     }
 
-    static fromJS(data: any): CreateUserCommand {
+    static fromJS(data: any): CreateUserRequest {
         data = typeof data === 'object' ? data : {};
-        let result = new CreateUserCommand();
+        let result = new CreateUserRequest();
         result.init(data);
         return result;
     }
@@ -6485,150 +6479,21 @@ export class CreateUserCommand implements ICreateUserCommand {
         data["password"] = this.password;
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
-        data["personalPhoto"] = this.personalPhoto;
         data["email"] = this.email;
-        data["defaultAvatar"] = this.defaultAvatar ? this.defaultAvatar.toJSON() : <any>undefined;
         data["phoneNumber"] = this.phoneNumber;
-        data["roleId"] = this.roleId;
-        data["nationalId"] = this.nationalId;
+        data["personalPhoto"] = this.personalPhoto;
         return data;
     }
 }
 
-export interface ICreateUserCommand {
+export interface ICreateUserRequest {
     userName?: string;
     password?: string;
-    firstName?: string | undefined;
+    firstName?: string;
     lastName?: string | undefined;
-    personalPhoto?: string | undefined;
     email?: string;
-    defaultAvatar?: UploadedFile | undefined;
     phoneNumber?: string;
-    roleId?: string;
-    nationalId?: string;
-}
-
-export abstract class BaseEntity implements IBaseEntity {
-    id?: string;
-    domainEvents?: BaseEvent[];
-
-    constructor(data?: IBaseEntity) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            if (Array.isArray(_data["domainEvents"])) {
-                this.domainEvents = [] as any;
-                for (let item of _data["domainEvents"])
-                    this.domainEvents!.push(BaseEvent.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): BaseEntity {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'BaseEntity' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        if (Array.isArray(this.domainEvents)) {
-            data["domainEvents"] = [];
-            for (let item of this.domainEvents)
-                data["domainEvents"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IBaseEntity {
-    id?: string;
-    domainEvents?: BaseEvent[];
-}
-
-export class UploadedFile extends BaseEntity implements IUploadedFile {
-    filePath?: string;
-    fileName?: string;
-    originalFileName?: string;
-    contentType?: string;
-    fileSize?: number;
-
-    constructor(data?: IUploadedFile) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.filePath = _data["filePath"];
-            this.fileName = _data["fileName"];
-            this.originalFileName = _data["originalFileName"];
-            this.contentType = _data["contentType"];
-            this.fileSize = _data["fileSize"];
-        }
-    }
-
-    static override fromJS(data: any): UploadedFile {
-        data = typeof data === 'object' ? data : {};
-        let result = new UploadedFile();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["filePath"] = this.filePath;
-        data["fileName"] = this.fileName;
-        data["originalFileName"] = this.originalFileName;
-        data["contentType"] = this.contentType;
-        data["fileSize"] = this.fileSize;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IUploadedFile extends IBaseEntity {
-    filePath?: string;
-    fileName?: string;
-    originalFileName?: string;
-    contentType?: string;
-    fileSize?: number;
-}
-
-export abstract class BaseEvent implements IBaseEvent {
-
-    constructor(data?: IBaseEvent) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): BaseEvent {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'BaseEvent' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data;
-    }
-}
-
-export interface IBaseEvent {
+    personalPhoto?: string | undefined;
 }
 
 export class LoginRequest2 implements ILoginRequest2 {

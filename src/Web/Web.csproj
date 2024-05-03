@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
     <PackageReference Include="NSwag.AspNetCore" />
     <PackageReference Include="NSwag.MSBuild">
@@ -130,7 +131,8 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\" />
-    <Folder Include="ClientApp\flutter\v2\" />
+    <Folder Include="ClientApp\flutter\v3\" />
+    <Folder Include="Views\UploadFlies\" />
     <Folder Include="wwwroot\api\" />
   </ItemGroup>
 
