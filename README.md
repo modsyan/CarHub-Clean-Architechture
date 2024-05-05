@@ -1,4 +1,23 @@
-﻿# Mac.CarHub
+﻿# CarHub
+
+Proposal:
+System to facilitate transparent and secure car storage and inspection processes. The system relies on modern technologies to enhance the user experience and ensure the accuracy and efficiency of operations. Through mobile applications and the dashboard, customers can easily track their cars and access the necessary information.
+
+System Requirements:
+Functional Requirements:
+The "Car Control" app must allow users to submit requests for car storage and specify the required duration.
+The system must enable the inspection of cars for scratches, record internal properties, and document the car's condition before storage.
+The system must register and store customs documents and issue storage licenses.
+The "My Garage" app should allow the car owner to track their car's status and storage duration.
+The dashboard app should provide comprehensive information about stored cars and timeframes.
+
+Non-Functional Requirements:
+The system must be secure and protected to ensure the safety of user data and sensitive information.
+The user interface should be user-friendly and visually appealing on mobile applications and the dashboard.
+The system should comply with local and international quality and security standards.
+The system should have high performance to ensure the quick processing of requests and updates.
+Technical support should be available to users through various communication channels.
+
 
 ## Project description.
 #### A Full System to Manage Cars with triptick system where we provided 3 applications
@@ -7,6 +26,7 @@ Applications:
 - Car Hub (Dashboard) : To manage the overall system.
 - Car Control (Mobile): Data Entry mobile application with staff to register cars and do with it multiple operations using mobile camera.
 - My Garage (Car Owner): Application to Car Owner to track and send requests if needed to company when needed for owned cars.
+- 
 ## Build
 
 Run `dotnet build -tl` to build the solution.
